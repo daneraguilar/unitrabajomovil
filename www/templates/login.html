@@ -1,0 +1,40 @@
+<ion-modal-view>
+ 
+  <ion-content class="verde padding">
+    <form name="login">
+     <br>
+      
+        <center>
+          <img src="img/userlogin.png" width="150" height="150" alt="center" style="color:red">
+        </center>
+    
+      <br><br>
+       <div class="item-input">
+       <label class="item-input-wrapper">
+        <i class="icon ion-person placeholder-icon "></i>
+        <input type="text" placeholder="unicesar@hotmail.com" ng-model="loginData.username"  required="">
+       </label>
+      </div>
+      <br>
+      <div class="item-input">
+       <label class="item-input-wrapper">
+        <i class="icon ion-locked placeholder-icon "></i>
+        <input type="password" placeholder="password" ng-model="loginData.password" required="">
+       </label>
+      </div>
+      
+     <a  style="color:grey"> <spam>aun no te registras?</spam> <a/>
+     
+      <button class="button button-block g " ng-disabled="login.$invalid" ng-click="doLogin()"L>
+        Iniciar Session
+</button>
+<button class="button icon icon-left ion-social-facebook button-block button-positive">Facebook
+
+</button>
+<button class="button icon icon-left ion-social-google-outline button-block button-assertive ">Google
+
+</button>
+
+    </form>
+  </ion-content>
+</ion-modal-view>

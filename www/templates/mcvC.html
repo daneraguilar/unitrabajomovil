@@ -1,0 +1,25 @@
+<ion-modal-view class="verde">
+<ion-content class="padding" >
+		<br>
+  <form name="habilidad" novalidate>
+	 <label class="item item-input  item-input-wrapper g">
+ <i class="icon ">
+    <img src="img/competencias.png" alt="" width="60" height="45">
+  </i>
+    <div class="input-label">
+ <span class="filtro">Competencia  </span>
+    </div>
+   
+  </label>
+  <label class="item item-input">
+    <input type="text" ng-model="competecia.c" required="">
+  </label>
+  	<br>
+  		<div class="button-bar">
+		<a class="button button-assertive" ng-click="closecvC()">Cancelar</a>
+		<a href=""></a>
+		<a class="button button-balanced" ng-click="docvC()" ng-disabled="habilidad.$invalid" >Guardar</a>
+	</div>
+  </form>
+  </ion-content>
+</ion-modal-view>

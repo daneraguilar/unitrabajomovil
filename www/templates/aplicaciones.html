@@ -1,0 +1,49 @@
+<ion-view >
+ <ion-nav-title >
+        <span class="font2">  Mis  aplicaciones   </span>
+     </ion-nav-title>
+  <ion-content ng-hide="loading">
+
+    <div class="list " >
+    <div class="item g">
+    <center>
+    <h2 class="filtro">perfil</h2>
+    </center>
+       
+    <p>fecha</p>
+    <div class="row ">
+    <div class="col-20 col-offset-10">
+    	<center class="aplicacion" ng-class="estado[0]"><i class="icon ion-android-done-all"></i>
+    	</center>
+    	<center><span class="filtro">cv visto</span></center>
+    </div>
+    <div class="col-10  ">
+    	<center><i class="icon ion-ios-minus-empty"></i></center>
+    </div>
+    <div class="col-20  ">
+    	<center class="aplicacion" ng-class="estado[1]"><i class="icon ion-android-done-all"></i>
+    	</center>
+    	<center><span class="filtro">proceso</span></center>
+    </div>
+    <div class="col-10  ">
+    	<center><i class="icon ion-ios-minus-empty"></i></center>
+    </div>
+      <div class="col-20  ">
+    	<center class="aplicacion" ng-class="estado[2]"><i class="icon ion-android-done-all"></i>
+    	</center>
+    	<center><span class="filtro">finalista</span></center>
+    </div>
+   <div class="item-icon-right ">
+        <i class="icon ion-ios-close" style="color: red"></i>
+    </div>
+    
+  </div>
+    
+</div>
+  
+   
+    
+    
+</div>
+  </ion-content>
+</ion-view>

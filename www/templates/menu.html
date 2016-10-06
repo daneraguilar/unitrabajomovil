@@ -1,0 +1,57 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar2" >
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-assertive ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    
+    </ion-nav-bar>
+    
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-content class="verde2 ">
+     <img class="full-image" src="img/sunicesar2.jpg"  >
+           <ion-list class="" >
+            <ion-item menu-close href="#/app/Empleos" class=" item-icon-left ">
+        <i class="icon ">
+          <img src="img/buscar.jpg"  width="27" height="27" alt="">
+        </i>
+        <span class="font"> Buscar Empleos</span>
+          
+        </ion-item>      
+        <ion-item menu-close  class=" item-icon-left" href="#/app/aplicaciones">
+        <i class="icon ">
+          <img src="img/aplicaciones3.png"  width="35" height="35" alt="">
+        </i>
+   
+         <span class="font">  Mis  Aplicaciones</span>
+        </ion-item>
+      
+        <ion-item menu-close href="#/app/cv" class=" item-icon-left ">
+        <i class="icon ">
+          <img src="img/C.png"   width="40" height="40" alt="">
+        </i>
+       
+        <span class="font">  Mi hoja de vida</span>
+        </ion-item>
+        <ion-item menu-close ng-click="login()" class=" item-icon-left">
+          <i class="icon ion-power" style="color:green"></i>
+          <span class="font">{{session}}</span>
+          
+        </ion-item>
+      </ion-list>
+      <br>
+      <br>
+      <center>
+        <img class="" src="img/unilogo.png" height="200" width="200">
+      </center>
+      
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

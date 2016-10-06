@@ -1,0 +1,116 @@
+<ion-modal-view class="verde">
+<ion-content class="padding" >
+	<br>
+  <form name="experiencia" novalidate="">
+  
+	 <label class="item item-input  item-input-wrapper g">
+ <i class="icon placeholder-icon">
+   <img src="img/empresa.png" width="50" height="50" alt="">
+ </i>
+    <div class="input-label">
+    <span class="filtro">Empresa </span> 
+    </div>
+   
+  </label>
+  <label class="item item-input">
+<input type="text" ng-model="exp.empresa"  required="">
+</label>
+	<br>
+		
+	 <label class="item item-input  item-input-wrapper g">
+ <i class="icon placeholder-icon">
+   <img src="img/cargo2.png" width="50" height="50" alt="">
+ </i>
+    <div class="input-label">
+      <span class="filtro">Cargo </span> 
+    </div>
+   
+  </label>
+    <label class="item item-input">
+ <input type="text" ng-model="exp.cargo" required="">
+</label>
+	<br>
+	  <label class="item item-input  item-input-wrapper g">
+  <i class="icon placeholder-icon ">
+  	<img src="img/contry.png" alt="" width="30" height="30">
+  </i>
+    <div class="input-label">
+      <span class="filtro">Departamento </span> 
+    </div>
+ 
+  </label>
+    <label class="item item-input item-select">
+     <select ng-model="exp.departamento" required="">
+    
+      <option ng-repeat="x in Departamentos" >{{x}}</option>
+       </select >
+        <br>
+  </label>
+    <br>
+   <div class="item item-toggle item-input-wrapper g">
+   <span class="filtro">Actualmente </span> 
+     <label class="toggle toggle-balanced">
+       <input type="checkbox" ng-model="exp.actualmente">
+       <div class="track">
+         <div class="handle"></div>
+       </div>
+     </label>
+  </div>
+  <br>
+
+  <div class="row">
+  	<div class="col col-offset-20">
+  		<label class="label">
+  			Inicio
+  		</label>
+  	</div>
+  	<div class="col col-offset-47">
+  		<label class="label">
+  			Final 
+  		</label>
+  	</div>
+  </div>
+  <div class="row">
+  <div class="col col-50">
+  	 <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar">
+ 
+    
+   <input type="date" placeholder="inicio" ng-model="exp.inicio" required="">
+  </label>
+  </div>
+  <div class="col col-50">
+  	 <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar" >
+ 
+    <input type="date" placeholder="Final" ng-model="exp.final" required="" ng-hide="exp.actualmente">
+  </label>
+  </div>  	
+  </div>
+
+   <br>
+ <label class="item item-input  item-input-wrapper g">
+ 
+    <div class="input-label">
+    <span class="filtro">Funcion </span> 
+    </div>
+
+
+  </label>
+     <label class="item item-input">
+    <input type="text" ng-model="exp.logros" required="">
+       <br><br><br><br>
+</label>
+<br>
+	<div class="button-bar" ng-hide="Editar">
+		<a class="button button-assertive" ng-click="closecvE()">Cancelar</a>
+		<a href=""></a>
+		<a class="button button-balanced" ng-click="docvE()" ng-disabled="experiencia.$invalid"  >Guardar</a>
+	</div>
+  <div class="button-bar" ng-show="Editar">
+    <a class="button button-balanced" ng-click="closecvE()">Cancelar</a>
+    <a href="" class="button button-energized" ng-click="editarE(1)">Editar</a>
+    <a class="button button-assertive" ng-click="editarE(2)">Elimar</a>
+  </div>
+</form>
+<br><br>
+</ion-content>
+</ion-modal-view>
