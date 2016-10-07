@@ -72,7 +72,7 @@
   </div>
   <div class="row">
   <div class="col col-50">
-  	 <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar">
+  	 <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar" >
  
     
    <input type="date" placeholder="inicio" ng-model="exp.inicio" required="">
@@ -81,7 +81,7 @@
   <div class="col col-50">
   	 <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar" >
  
-    <input type="date" placeholder="Final" ng-model="exp.final" required="" ng-hide="exp.actualmente">
+    <input type="date" placeholder="final" ng-model="exp.final" required="" ng-hide="exp.actualmente">
   </label>
   </div>  	
   </div>
@@ -96,19 +96,21 @@
 
   </label>
      <label class="item item-input">
-    <input type="text" ng-model="exp.logros" required="">
+    <input type="text" ng-model="exp.funcion" required="">
        <br><br><br><br>
 </label>
 <br>
-	<div class="button-bar" ng-hide="Editar">
-		<a class="button button-assertive" ng-click="closecvE()">Cancelar</a>
-		<a href=""></a>
-		<a class="button button-balanced" ng-click="docvE()" ng-disabled="experiencia.$invalid"  >Guardar</a>
+	<div  ng-hide="Editar">
+  <a class="button button-block button2" ng-click="docvE()" ng-disabled="experiencia.$invalid"  >Guardar</a>
+		<a class="button button-block g" ng-click="closecvE()">Cancelar</a>
+		
+		
 	</div>
-  <div class="button-bar" ng-show="Editar">
-    <a class="button button-balanced" ng-click="closecvE()">Cancelar</a>
-    <a href="" class="button button-energized" ng-click="editarE(1)">Editar</a>
-    <a class="button button-assertive" ng-click="editarE(2)">Elimar</a>
+  <div  ng-show="Editar">
+   <a href="" class="button button-block button1 " ng-click="editarE(1)">Editar</a>
+     <a class="button button-block button3" ng-click="editarE(2)">Elimar</a>
+    <a class="button button-block g " ng-click="closecvE()">Cancelar</a>
+     
   </div>
 </form>
 <br><br>

@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout,$ionicPopup,$ionicLoading,sk) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout,$ionicPopup,$ionicLoading,socket,service) {
 'use strict';
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -9,16 +9,23 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
          $scope.loginData = {};
+         $scope.registro={};
+         $scope.Session={};
+         
+       
+$scope.Session.name= "Iniciar Session";
           
          $scope.pics=["img/desarrollador.jpg"];
-      $scope.loginData.username=localStorage.getItem('username');
-      $scope.loginData.password=localStorage.getItem('password');
+  
 
         // Form data for the login modal
 
-sk.on('d',function(d){
+socket.on('d',function(d){
  
 });
+
+
+
       $scope.Departamentos = [
           'AMAZONAS', 
           'ANTIOQUIA', 
@@ -53,7 +60,7 @@ sk.on('d',function(d){
           'VAUPES', 
           'VICHADA', 
       ]; 
-          $scope.session= "Iniciar Session";
+          
 
 
       $scope.Empleos=[
@@ -64,7 +71,13 @@ sk.on('d',function(d){
       {name:"marta",ap:"daner"}
       ];
 
+  $ionicModal.fromTemplateUrl('templates/mresgistrar.html', {
+          scope: $scope
 
+        }).then(function(modal) {
+          $scope.registrar = modal;
+
+        });
         // Create the login modal that we will use later
         $ionicModal.fromTemplateUrl('templates/login.html', {
           scope: $scope
@@ -82,36 +95,95 @@ sk.on('d',function(d){
 
         // Triggered in the login modal to close it
         $scope.closeLogin = function() {
+
           $scope.modal.hide();
         };
+        $scope.closeregistro = function() {
+          $scope.registro={};
+      
+          $scope.registrar.hide();
+
+
+        };
+       $scope.doeditar=function(){
+        var id =$scope.Session.user._id;
+        console.log(id);
+       service.egresadoupdate(id,$scope.registro).then(function(res){
+         $scope.showAlert("Perfil",
+                "editado corretamente!");
+       })
+        
+        localStorage.setItem('user',JSON.stringify(res.data));
+              $scope.Session.user = res.data;
+              $scope.Session.state=true; 
+              $scope.Session.name= $scope.Session.user.nombres;
+       }
 
         // Open the login modal
         $scope.login = function() {
+          $scope.loginData={};
           $scope.modal.show();
         };
+        $scope.showregistro = function() {
+          $scope.registrar.show();
+          $scope.closeLogin();
+        };
+        $scope.doregistro=function(){
+          service.egresadonew($scope.registro);
+          $scope.closeregistro();
 
+        }
         // Perform the login action when the user submits the login form
         $scope.doLogin = function() {
-          console.log('Doing login', $scope.loginData);
-      localStorage.setItem('username',$scope.loginData.username);
-      localStorage.setItem('password',$scope.loginData.password);
-      sessionStorage.setItem('daner',"oscar");
-          // Simulate a login delay. Remove this and replace with your login
-          // code if using a login system
-          $timeout(function() {
-            $scope.closeLogin();
-          }, 500);
-        };
-       
+           //console.log($scope.loginData);
+          service.egresadoauth($scope.loginData).then(function(res){
+           console.log(res);
+            if(!res.data){
+              
+                 $scope.showAlert("Session",
+                "email o password invalido");
+            }else{
+              localStorage.setItem('user',JSON.stringify(res.data));
+              $scope.Session.user = res.data;
+              $scope.Session.state=true; 
+              $scope.showAlert("Session",
+                "ha inicioado session corretamente!");
+             $scope.Session.name= $scope.Session.user.nombres;
+             $scope.closeLogin();
+              }
+            
+             })  
+
+          };
+        $scope.salirSession=function(){
+           localStorage.setItem('user',"");
+              $scope.Session.user = null;
+              $scope.Session.state=false; 
+              $scope.loginData={};
+
+        }
+
+
         // Triggered in the login modal to close it
         $scope.closeFiltro = function() {
           $scope.filtro.hide();
         };
+        $scope.showeditarregistro=function(){
+          $scope.registro = $scope.Session.user;
+          $scope.showregistro();
 
+        }
         // Open the login modal
         $scope.f = function() {
           $scope.filtro.show();
         };
+         $scope.showAlert = function(t,b) {
+          var alertPopup = $ionicPopup.alert({
+            title: t,
+            template: b
+             });
+
+         }
 
         // Perform the login action when the user submits the login form
         $scope.dF = function() {
@@ -128,26 +200,7 @@ sk.on('d',function(d){
           }, 500);
 
         };
-        $timeout(function() {
-          if(localStorage.getItem('username')){
-           
-          }else{
-             $scope.login();
-          }
-          
-          }, 10);
-        $ionicLoading.show({
-    content: 'Loading',
-    animation: 'fade-in',
-    showBackdrop: true,
-    maxWidth: 200,
-    showDelay: 0
-  });
- $scope.loading=true;
-  $timeout(function() {
-     $ionicLoading.hide();
-     $scope.loading=false;
-    }, 1000);
+       
 
 })
 
@@ -166,7 +219,13 @@ sk.on('d',function(d){
         $scope.formacion={};
         $scope.idioma={};
         $scope.competecia={};
+   $scope.showAlert = function(t,b) {
+          var alertPopup = $ionicPopup.alert({
+            title: t,
+            template: b
+             });
 
+         }
      $scope.editarE=function(l){
        if(l==2){
   
@@ -295,7 +354,7 @@ sk.on('d',function(d){
 
             // Perform the login action when the user submits the login form
             $scope.docvE = function() {
-
+              
 
               // Simulate a login delay. Remove this and replace with your login
               // code if using a login system
@@ -416,15 +475,15 @@ sk.on('d',function(d){
 
 
 .controller('aplicaciones',function($scope, $stateParams,$ionicModal,$timeout,$ionicPopup,$ionicLoading){
-$scope.estado=['','','stado'];
-$ionicLoading.show({
+ $scope.estado=['','','stado'];
+ $ionicLoading.show({
     content: 'Loading',
     animation: 'fade-in',
     showBackdrop: true,
     maxWidth: 200,
     showDelay: 0
-  });
- $scope.loading=true;
+   });
+   $scope.loading=true;
   $timeout(function() {
      $ionicLoading.hide();
      $scope.loading=false;

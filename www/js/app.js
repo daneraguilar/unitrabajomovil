@@ -65,12 +65,40 @@ angular.module('starter', ['ionic', 'starter.controllers','btford.socket-io'])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/Empleos');
 })
-.factory('sk', function (socketFactory) {
-  var myIoSocket = io.connect('localhost:3000');
+.factory('socket', function (socketFactory) {
+  var myIoSocket = io.connect('http://localhost:3000');
 
   mySocket = socketFactory({
     ioSocket: myIoSocket
   });
 
   return mySocket;
+})
+.factory('service',function($http,$q, $ionicLoading, $timeout,$ionicPopup){
+var servicios={};
+var wait = $q.defer();
+
+
+   servicios.egresadonew= function(datos){
+
+       
+          return $http.post("http://localhost:3000/API/egresadonew", JSON.stringify(datos))
+                     
+            }
+
+   servicios.egresadoupdate= function(_id,datos){       
+      return  $http.put("http://localhost:3000/API/egresadoupdate/"+_id,JSON.stringify(datos))   
+          
+               }
+   servicios.egresadoauth= function(datos){
+     return $http.post("http://localhost:3000/API/egresadoauth", JSON.stringify(datos))
+     }
+   servicios.experiencianew= function(datos){
+    return $http.post("http://localhost:3000/API/experiencianew",JSON.stringify(datos))
+
+
+   }  
+
+        return servicios;
+
 });

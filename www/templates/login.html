@@ -1,7 +1,7 @@
 <ion-modal-view>
  
   <ion-content class="verde padding">
-    <form name="login">
+    <form >
      <br>
       
         <center>
@@ -9,31 +9,38 @@
         </center>
     
       <br><br>
-       <div class="item-input">
+       <div class="item-input" ng-hide="Session.state">
        <label class="item-input-wrapper">
         <i class="icon ion-person placeholder-icon "></i>
-        <input type="text" placeholder="unicesar@hotmail.com" ng-model="loginData.username"  required="">
+        <input type="text" placeholder="unicesar@hotmail.com" ng-model="loginData.email"  required="">
        </label>
       </div>
       <br>
-      <div class="item-input">
+      <div class="item-input" ng-hide="Session.state">
        <label class="item-input-wrapper">
-        <i class="icon ion-locked placeholder-icon "></i>
+        <i class="icon ion-unlocked placeholder-icon "></i>
         <input type="password" placeholder="password" ng-model="loginData.password" required="">
        </label>
       </div>
-      
-     <a  style="color:grey"> <spam>aun no te registras?</spam> <a/>
+   
+   
      
-      <button class="button button-block g " ng-disabled="login.$invalid" ng-click="doLogin()"L>
+      <button class="button button-block button2 " ng-disabled="login.$invalid" ng-click="doLogin()" ng-hide="Session.state">
         Iniciar Session
 </button>
-<button class="button icon icon-left ion-social-facebook button-block button-positive">Facebook
-
+      <button class="button button-block button3 "  ng-click="salirSession()" ng-show="Session.state">
+        Salir Session
 </button>
-<button class="button icon icon-left ion-social-google-outline button-block button-assertive ">Google
-
+  <button class="button button-block button1 "  ng-click="showregistro()" ng-hide="Session.state">
+        Registrase
 </button>
+ <button class="button button-block button1 "  ng-click="showeditarregistro()" ng-show="Session.state">
+        Editar Perfil
+</button>
+    <button class="button button-block g "  ng-click="closeLogin()">
+        Cancelar
+</button>
+
 
     </form>
   </ion-content>

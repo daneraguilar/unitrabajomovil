@@ -1,0 +1,84 @@
+   <ion-modal-view>
+ 
+  <ion-content class="verde padding">
+    <form name="login">
+     <br>
+      
+        <center>
+          <img src="img/grado2.png" width="150" height="150" alt="center" style="color:red">
+        </center>
+    
+      <br>
+           <div class="item-input">
+       <label class="item-input-wrapper">
+        <i class="icon ion-ios-email placeholder-icon icon-right "></i>
+        <input type="email" placeholder="unicesar@hotmail.com" ng-model="registro.email"  required="">
+       </label>
+      </div>
+      
+       <div class="item-input">
+       <label class="item-input-wrapper">
+        <i class="icon ion-person placeholder-icon icon-right "></i>
+        <input type="text" placeholder="Nombres" ng-model="registro.nombres"  required="">
+       </label>
+      </div>
+      
+           <div class="item-input">
+       <label class="item-input-wrapper">
+        <i class="icon ion-person placeholder-icon icon-right "></i>
+        <input type="text" placeholder="Apellidos" ng-model="registro.apellidos"  required="">
+       </label>
+      </div>
+            <div class="item-input">
+       <label class="item-input-wrapper">
+        <i class="icon  placeholder-icon icon-right ">
+          <img src="img/iconmale.png" width="20" height="20" alt="">
+        </i>
+
+        <select ng-model="registro.sexo" class="g" >
+          <option >Masculino </option>
+          <option >Femenino</option>
+        
+        </select>
+        <br>
+        <br>
+       </label>
+      </div>
+           
+            <div class="item-input">
+       <label class="item-input-wrapper">
+        <i class="icon ion-android-call placeholder-icon icon-right "></i>
+        <input type="number" placeholder="telefono" ng-model="registro.telefono"  required="">
+       </label>
+      </div>
+                   
+      <div class="item-input">
+       <label class="item-input-wrapper">
+        <i class="icon ion-locked placeholder-icon "></i>
+        <input type="password" placeholder="password" ng-model="registro.password" required="">
+       </label>
+      </div>
+         <div class="item-input">
+       <label class="item-input-wrapper">
+        <i class="icon ion-locked placeholder-icon "></i>
+        <input type="password" placeholder="repetir password" ng-model="registro.repassword" required="">
+       </label>
+      </div>
+
+       
+     
+      <button class="button button-block button2 " ng-disabled="login.$invalid" ng-click="doregistro()" ng-hide="Session.state">
+        Registrar
+</button>
+     <button class="button button-block button1 " ng-disabled="login.$invalid" ng-click="doeditar()" ng-show="Session.state">
+        Editar
+</button>
+  
+    <button class="button button-block g "  ng-click="closeregistro()">
+        Cancelar
+</button>
+
+
+    </form>
+  </ion-content>
+</ion-modal-view>
