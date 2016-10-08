@@ -1,46 +1,42 @@
 <ion-modal-view class="verde">
-<ion-content class="padding">	<br>
-	<form name="idim" novalidate="">
-	<label class="item item-input  item-input-wrapper g">
-  <i class="icon placeholder-icon ">
-  	<img src="img/idioma.png" alt="" width="40" height="40">
+    <ion-content class="padding">
+        <br>
+        <form name="idim" novalidate="">
+            <label class="item item-input  item-input-wrapper g">
+                <i class="icon placeholder-icon ">
+    <img src="img/idioma.png" alt="" width="40" height="40">
   </i>
-    <div class="input-label">
-      <span class="filtro">Idioma</span> 
-    </div>
-  
-  </label>
-  <label class="item item-select">
-      <select ng-model="idioma.idioma" required="">
-    <option></option>
-      <option ng-repeat="x in Departamentos" >{{x}}</option>
- 
-    </select>
-  </label>
-  <br>
-  <label class="item item-input item-input-wrapper g">
-  <i class="icon placeholder-icon ">
-  	<img src="img/nivel.png" alt="" width="40" height="40">
+                <div class="input-label">
+                    <span class="filtro">Idioma</span>
+                </div>
+            </label>
+            <label class="item item-select">
+                <select ng-model="idioma.idioma" required="">
+                    <option></option>
+                    <option ng-repeat="x in Departamentos">{{x}}</option>
+                </select>
+            </label>
+            <br>
+            <label class="item item-input item-input-wrapper g">
+                <i class="icon placeholder-icon ">
+    <img src="img/nivel.png" alt="" width="40" height="40">
   </i>
-    <div class="input-label">
-     <span class="filtro">Nivel de idioma</span> 
-    </div>
-
-  </label>
-   <label class="item item-select">
-      <select ng-model="idioma.Nivel" required="">
-    <option></option>
-      <option ng-repeat="x in Departamentos" >{{x}}</option>
- 
-    </select>
-  </label>
-  <br>
-  	<div class="button-bar">
-		<a class="button button-assertive" ng-click="closecvI()">Cancelar</a>
-		<a href=""></a>
-		<a class="button button-balanced" ng-click="docvI()" ng-disabled="idim.$invalid">Guardar</a>
-	</div>
-	</form>
-  </ion-content>
-
+                <div class="input-label">
+                    <span class="filtro">Nivel de idioma</span>
+                </div>
+            </label>
+            <label class="item item-select">
+                <select ng-model="idioma.Nivel" required="">
+                    <option></option>
+                    <option ng-repeat="x in Departamentos">{{x}}</option>
+                </select>
+            </label>
+            <br>
+            <div class="button-bar">
+                <a class="button button-assertive" ng-click="closecvI()">Cancelar</a>
+                <a href=""></a>
+                <a class="button button-balanced" ng-click="docvI()" ng-disabled="idim.$invalid">Guardar</a>
+            </div>
+        </form>
+    </ion-content>
 </ion-modal-view>

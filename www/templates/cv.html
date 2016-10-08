@@ -1,142 +1,123 @@
-<ion-view >
-  <ion-nav-title >
+<ion-view>
+    <ion-nav-title>
         <span class="font2">  Mi  hoja de Vida   </span>
-     </ion-nav-title>
-
-  <ion-content ng-hide="loading" >
-
-
-  
-<div class="row item-input item-input-wrapper g item-icon-letf " >
-	<i class="icon ">
+    </ion-nav-title>
+    <ion-content ng-hide="loading">
+        <div class="row item-input item-input-wrapper g item-icon-letf ">
+            <i class="icon ">
 		<img src="img/meletin.png" alt="" width="60" height="50">
 	</i>
-	<div class="col col-40 col-offset-10"><span class="filtro">Experiencia   <br>     laboral </span> </div>
-	<div class="col col-20 ">
-		<button class="button button-small button-balanced 
-		" ng-click="showcvE()"><div class="row
+            <div class="col col-40 col-offset-10"><span class="filtro">Experiencia   <br>     laboral </span> </div>
+            <div class="col col-20 ">
+                <button class="button button-small button-balanced 
+		" ng-click="showcvE()">
+                    <div class="row
 		">
-			<div class="col col-30">añadir</div>
-			<div class="col col-offset-10">
-				<i class="icon ">
+                        <div class="col col-30">añadir</div>
+                        <div class="col col-offset-10">
+                            <i class="icon ">
 					<img src="img/add.png" alt="" width="20" height="20">
 				</i>
-			</div>
-		</div>
-		
-		</button>
-	</div>
-</div>
-
-
-
-<ion-list>
-  <ion-item class="item item-icon-right " style="   background-color: #e8f5e9"  ng-repeat="d in dataE">
- <a >
-    	  <i class="icon ion-android-more-vertical" ng-click="editarE(d)" ></i>
-    </a>
-<center>
-<h2>{{d.empresa}}</h2>
-</center>
-      
-      <p>{{d.cargo}}</p>
-  </ion-item>
-</ion-list>
-<div class="row item-input item-input-wrapper g item-icon-letf " >
-	<i class="icon ">
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <ion-list>
+            <ion-item class="item item-icon-right " style="   background-color: #e8f5e9" ng-repeat="d in user.experiencias">
+                <a>
+                    <i class="icon ion-android-more-vertical" ng-click="editarE(d)"></i>
+                </a>
+                <center>
+                    <h2>{{d.empresa}}</h2>
+                </center>
+                <p>{{d.cargo}}</p>
+            </ion-item>
+        </ion-list>
+        <div class="row item-input item-input-wrapper g item-icon-letf ">
+            <i class="icon ">
 		<img src="img/grado2.png" alt="" width="60" height="60">
 	</i>
-	<div class="col col-40 col-offset-10"><span class="filtro">Formacion academica </span> </div>
-	<div class="col col-20 ">
-		<button class="button button-small button-balanced 
-		" ng-click="showcvF()"><div class="row
+            <div class="col col-40 col-offset-10"><span class="filtro">Formacion academica </span> </div>
+            <div class="col col-20 ">
+                <button class="button button-small button-balanced 
+		" ng-click="showcvF()">
+                    <div class="row
 		">
-			<div class="col col-30">añadir</div>
-			<div class="col col-offset-10">
-				<i class="icon ">
+                        <div class="col col-30">añadir</div>
+                        <div class="col col-offset-10">
+                            <i class="icon ">
 					<img src="img/add.png" alt="" width="20" height="20">
 				</i>
-			</div>
-		</div>
-		
-		</button>
-	</div>
-</div>
-<ion-list>
-  <ion-item class="item item-icon-right " style="   background-color: #e8f5e9" ng-repeat="d in dataF">
-   <a >
-    	  <i class="icon ion-android-more-vertical" ng-click="editarF(d)" ></i>
-    </a>
-<center>
-<h2>{{d.Institucion}}</h2>
-</center>
-      
-      <p>{{d.Area}}</p>
-  </ion-item>
-</ion-list>
-
-<div class="row item-input item-input-wrapper g item-icon-letf " >
-	<i class="icon ">
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <ion-list>
+            <ion-item class="item item-icon-right " style="   background-color: #e8f5e9" ng-repeat="d in user.estudios">
+                <a>
+                    <i class="icon ion-android-more-vertical" ng-click="editarF(d)"></i>
+                </a>
+                <center>
+                    <h2>{{d.institucion}}</h2>
+                </center>
+                <p>{{d.area}}</p>
+            </ion-item>
+        </ion-list>
+        <div class="row item-input item-input-wrapper g item-icon-letf ">
+            <i class="icon ">
 		<img src="img/idiomas.png" alt="" width="60" height="50">
 	</i>
-	<div class="col col-40 col-offset-10"><span class="filtro">Idiomas    </span> </div>
-	<div class="col col-20 ">
-		<button class="button button-small button-balanced 
-		" ng-click="showcvI()"><div class="row
+            <div class="col col-40 col-offset-10"><span class="filtro">Idiomas    </span> </div>
+            <div class="col col-20 ">
+                <button class="button button-small button-balanced 
+		" ng-click="showcvI()">
+                    <div class="row
 		">
-			<div class="col col-30">añadir</div>
-			<div class="col col-offset-10">
-				<i class="icon ">
+                        <div class="col col-30">añadir</div>
+                        <div class="col col-offset-10">
+                            <i class="icon ">
 					<img src="img/add.png" alt="" width="20" height="20">
 				</i>
-			</div>
-		</div>
-		
-		</button>
-	</div>
-</div>
-<ion-list>
-  <ion-item class="button  tag"  ng-hide="badera">
-   
-         que paso loco dede
-      <a >  <i class="icon icon-rigth ion-close" ></i>
-      </a>
-  </ion-item>
-
-</ion-list>
-
-<div class="row item-input item-input-wrapper g item-icon-letf " >
-	<i class="icon ">
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <ion-list>
+            <ion-item class="button  tag" ng-hide="badera">
+                que paso loco dede
+                <a> <i class="icon icon-rigth ion-close"></i>
+                </a>
+            </ion-item>
+        </ion-list>
+        <div class="row item-input item-input-wrapper g item-icon-letf ">
+            <i class="icon ">
 		<img src="img/competencias.png" alt="" width="60" height="45">
 	</i>
-	<div class="col col-40 col-offset-10"><span class="filtro">Competencias / Habilides   </span> </div>
-	<div class="col col-20 ">
-		<button class="button button-small button-balanced 
-		" ng-click="showcvC()"><div class="row
+            <div class="col col-40 col-offset-10"><span class="filtro">Competencias / Habilides   </span> </div>
+            <div class="col col-20 ">
+                <button class="button button-small button-balanced 
+		" ng-click="showcvC()">
+                    <div class="row
 		">
-			<div class="col col-30">añadir</div>
-			<div class="col col-offset-10">
-				<i class="icon ">
+                        <div class="col col-30">añadir</div>
+                        <div class="col col-offset-10">
+                            <i class="icon ">
 					<img src="img/add.png" alt="" width="20" height="20">
 				</i>
-			</div>
-		</div>
-		
-		</button>
-	</div>
-</div>
-<ion-list>
-  <ion-item class="button  tag" >
-   
-         Hello
-      <a >  <i class="icon ion-close" ></i>
-      </a>
-  </ion-item>
-
-
-</ion-list>
-    
- 
- 
-  </ion-content>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <ion-list>
+            <ion-item class="button  tag">
+                Hello
+                <a> <i class="icon ion-close"></i>
+                </a>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>

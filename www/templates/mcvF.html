@@ -1,100 +1,93 @@
 <ion-modal-view class="verde">
-<ion-content class="padding">
-	<br>
-  <form name="form" novalidate>
-	 <label class="item item-input  item-input-wrapper g">
- <i class="icon placeholder-icon ">
+    <ion-content class="padding">
+        <br>
+        <form name="form">
+            <label class="item item-input  item-input-wrapper g">
+                <i class="icon placeholder-icon ">
     <img src="img/institucion.png" alt="" width="50" height="50">
   </i>
-    <div class="input-label ">
-     <span class="filtro">Institucion </span> 
-    </div>
-  
-  </label>
-  <label class="item item-input">
-     <input type="text" ng-model="formacion.Institucion" required="">
-  </label>
-  	<br>
-	  <label class="item item-input  item-input-wrapper g">
-  <i class="icon placeholder-icon ">
-  	<img src="img/nivele.png" alt="" width="40" height="40">
+                <div class="input-label ">
+                    <span class="filtro">Institucion </span>
+                </div>
+            </label>
+            <label class="item item-input">
+                <input type="text" ng-model="estudio.institucion" required="">
+            </label>
+            <br>
+            <label class="item item-input  item-input-wrapper g">
+                <i class="icon placeholder-icon ">
+    <img src="img/nivele.png" alt="" width="40" height="40">
   </i>
-    <div class="input-label">
-     <span class="filtro">Nivel de estudio </span> 
-    </div>
-
-  </label>
-    <label class="item item-input item-select">
-     <select ng-model="formacion.Nivel" required="">
-    <option></option>
-      <option ng-repeat="x in Departamentos" >{{x}}</option>
-       </select >
-        <br>
-  </label>
-	<br>
-     <label class="item item-input  item-input-wrapper g">
- <i class="icon placeholder-icon ">
+                <div class="input-label">
+                    <span class="filtro">Nivel de estudio </span>
+                </div>
+            </label>
+            <label class="item item-input item-select">
+                <select ng-model="estudio.nivel" required="">
+                    <option></option>
+                    <option ng-repeat="x in Departamentos">{{x}}</option>
+                </select>
+                <br>
+            </label>
+            <br>
+            <label class="item item-input  item-input-wrapper g">
+                <i class="icon placeholder-icon ">
     <img src="img/area.png" alt="" width="30" height="50">
   </i>
-    <div class=" input-label">
-     <span class="filtro">Area de estudio</span> 
-    </div>
-   
-  </label>
-   <label class="item item-input">
-     <input type="text" ng-model="formacion.Area" required="">
-  </label>
-  <br>
-   <div class="item item-toggle item-input-wrapper g">
-   <span class="filtro">Cruzando actualmente </span> 
-     <label class="toggle toggle-balanced">
-       <input type="checkbox" ng-model="formacion.Actualmente">
-       <div class="track">
-         <div class="handle"></div>
-       </div>
-     </label>
-  </div>
-  <br>
-  <div class="row">
-  	<div class="col col-offset-20">
-  		<label class="label">
-  			Inicio
-  		</label>
-  	</div>
-  	<div class="col col-offset-47">
-  		<label class="label">
-  			final
-  		</label>
-  	</div>
-  </div>
-  <div class="row">
-  <div class="col col-50">
-  	 <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar">
- 
-    
-   <input type="date" placeholder="inicio" ng-model="formacion.Inicio" required="">
-  </label>
-  </div>
-  <div class="col col-50">
-  	 <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar">
- 
-    <input type="date" placeholder="Final" ng-model="formacion.Final" required="" ng-hide="formacion.Actualmente">
-  </label>
-  </div>  	
-  </div>
-
-<br>
-	<div class="button-bar" ng-hide="Editar">
-		<a class="button button-assertive" ng-click="closecvF()">Cancelar</a>
-		<a href=""></a>
-		<a class="button button-balanced" ng-click="docvF()" ng-disabled="form.$invalid" >Guardar</a>
-	</div>
-  <div class="button-bar" ng-show="Editar">
-    <a class="button button-balanced" ng-click="closecvF()">Cancelar</a>
-    <a href="" class="button button-energized" ng-click="editarF(1)">Editar</a>
-    <a class="button button-assertive" ng-click="editarF(2)">Elimar</a>
-  </div>
-  </form>
-  <br><br>
-  </ion-content>
+                <div class=" input-label">
+                    <span class="filtro">Area de estudio</span>
+                </div>
+            </label>
+            <label class="item item-input">
+                <input type="text" ng-model="estudio.area" required="">
+            </label>
+            <br>
+            <div class="item item-toggle item-input-wrapper g">
+                <span class="filtro">Actualmente </span>
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="estudio.actualmente">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col col-offset-20">
+                    <label class="label">
+                        Inicio
+                    </label>
+                </div>
+                <div class="col col-offset-47">
+                    <label class="label">
+                        final
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-50">
+                    <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar">
+                        <input type="date" placeholder="inicio" ng-model="estudio.inicio" required="">
+                    </label>
+                </div>
+                <div class="col col-50">
+                    <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar">
+                        <input type="date" placeholder="Final" ng-model="estudio.final" ng-hide="estudio.actualmente">
+                    </label>
+                </div>
+            </div>
+            <br>
+            <div ng-hide="Editar">
+                <a class="button button-block button2" ng-click="docvF(estudio)" ng-disabled="form.$invalid">Guardar</a>
+                <a class="button button-block g" ng-click="closecvF()">Cancelar</a>
+            </div>
+            <div ng-show="Editar">
+                <a href="" class="button button-block button1 " ng-click="editarF(1)" ng-disabled="exp.$invalid">Editar</a>
+                <a class="button button-block button3" ng-click="editarF(2)">Elimar</a>
+                <a class="button button-block g " ng-click="closecvF()">Cancelar</a>
+            </div>
+        </form>
+        <br>
+        <br>
+    </ion-content>
 </ion-modal-view>

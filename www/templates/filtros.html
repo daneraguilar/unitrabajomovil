@@ -1,138 +1,117 @@
-<ion-modal-view  >
-
-<ion-header-bar align-title="center" class="bar-balanced" >
-	<div class="button icon icon-left ion-ios-trash " ng-click="dF()">
-		Limpiar
-	</div>
-		<div class="button icon icon-left ion-ios-compose " ng-click="closeFiltro()">
-		Aplicar 
-	</div>
-
-	
-</ion-header-bar>
-	<ion-content  class="padding verde" > 
-	<br>
-	 <label class="item item-input  item-input-wrapper g" >
- <i class="icon placeholder-icon " >
-  	<img src="img/category.png" alt="" width="20" height="20">
+<ion-modal-view>
+    <ion-header-bar align-title="center" class="bar-balanced">
+        <div class="button icon icon-left ion-ios-trash " ng-click="dF()">
+            Limpiar
+        </div>
+        <div class="button icon icon-left ion-ios-compose " ng-click="closeFiltro()">
+            Aplicar
+        </div>
+    </ion-header-bar>
+    <ion-content class="padding verde">
+        <br>
+        <label class="item item-input  item-input-wrapper g">
+            <i class="icon placeholder-icon ">
+    <img src="img/category.png" alt="" width="20" height="20">
   </i>
-    <div class="input-label filtro">
-      Categoria
-    </div>
-
- 
-  </label>
-    <label class="item item-select item-input ">
-     <select ng-model="filtro.Category">
-    <option></option>
-      <option ng-repeat="x in Empleos" >{{x.name}}</option>
- 
-    </select> 
-    <br>
-  </label>
-	<br>
-	
-
-  <label class="item item-input  item-input-wrapper g">
-  <i class="icon placeholder-icon ">
-  	<img src="img/contry.png" alt="" width=30 height="30">
+            <div class="input-label filtro">
+                Categoria
+            </div>
+        </label>
+        <label class="item item-select item-input ">
+            <select ng-model="filtro.Category">
+                <option></option>
+                <option ng-repeat="x in Empleos">{{x.name}}</option>
+            </select>
+            <br>
+        </label>
+        <br>
+        <label class="item item-input  item-input-wrapper g">
+            <i class="icon placeholder-icon ">
+    <img src="img/contry.png" alt="" width=30 height="30">
   </i>
-    <div class="input-label filtro" >
-      Departamento
-    </div>
- 
-  </label>
-    <label class="item item-select item-input ">
-     <select ng-model="filtro.Departament">
-    <option></option>
-      <option ng-repeat="x in Departamentos" >{{x}}</option>
- 
-    </select>
-    <br>
-  </label>
-  <br>
-    <label class="item item-input  item-input-wrapper g">
-  <i class="icon placeholder-icon ">
-  	<img src="img/city.png" alt="" width="30" height="30">
+            <div class="input-label filtro">
+                Departamento
+            </div>
+        </label>
+        <label class="item item-select item-input ">
+            <select ng-model="filtro.Departament">
+                <option></option>
+                <option ng-repeat="x in Departamentos">{{x}}</option>
+            </select>
+            <br>
+        </label>
+        <br>
+        <label class="item item-input  item-input-wrapper g">
+            <i class="icon placeholder-icon ">
+    <img src="img/city.png" alt="" width="30" height="30">
   </i>
-    <div class="input-label filtro" >
-      Ciudad
-    </div>
- 
-  </label>
-    <label class="item item-select item-input ">
-     <select ng-model="filtro.City">
-      <option></option>
-      <option ng-repeat="x in Empleos" >{{x.name}}</option>
- 
-    </select>
-    <br>
-  </label>
-  <br>
-   <label class="item item-input  item-input-wrapper g" >
-  <i class="icon placeholder-icon ">
-  	<img src="img/tipoC.png" alt="" width="30" height="30">
+            <div class="input-label filtro">
+                Ciudad
+            </div>
+        </label>
+        <label class="item item-select item-input ">
+            <select ng-model="filtro.City">
+                <option></option>
+                <option ng-repeat="x in Empleos">{{x.name}}</option>
+            </select>
+            <br>
+        </label>
+        <br>
+        <label class="item item-input  item-input-wrapper g">
+            <i class="icon placeholder-icon ">
+    <img src="img/tipoC.png" alt="" width="30" height="30">
   </i>
-    <div class="input-label filtro">
-      Tipo de contrato
-    </div>
-
-    </label>
-  <label class="item item-select item-input ">
-     <select ng-model="filtro.TipoContrato" >
-      <option></option>
-      <option ng-repeat="x in Empleos" >{{x.ap}}</option>
- 
-    </select>
-
-    <br>
-  </label>
-  <br>
-   <label class="item item-input  item-input-wrapper g">
-  <i class="icon placeholder-icon ">
-  	<img src="img/clock.png" alt="" width="40" height="40">
+            <div class="input-label filtro">
+                Tipo de contrato
+            </div>
+        </label>
+        <label class="item item-select item-input ">
+            <select ng-model="filtro.TipoContrato">
+                <option></option>
+                <option ng-repeat="x in Empleos">{{x.ap}}</option>
+            </select>
+            <br>
+        </label>
+        <br>
+        <label class="item item-input  item-input-wrapper g">
+            <i class="icon placeholder-icon ">
+    <img src="img/clock.png" alt="" width="40" height="40">
   </i>
-    <div class="input-label filtro">
-      Jornada de trabajo
-    </div>
-
-  </label>
-    <label class="item item-select item-input ">
-      <select ng-model="filtro.Jornada">
-      <option></option>
-      <option ng-repeat="x in Empleos" >{{x.name}}</option>
- 
-    </select>
-    <br>
-  </label>
-  <br>
-<ul class="list">
-
-  <li class="item item-toggle item-input-wrapper g">
-     HTML5
-     <label class="toggle toggle-balanced">
-       <input type="checkbox" ng-model="filtro.html">
-       <div class="track">
-         <div class="handle"></div>
-       </div>
-     </label>
-  </li>
-
- <li>
- <br>
- <center><p style="color:grey">3,000.000</p></center>
- 
- 	<div class="item range range-balanced g">
-  <i class="icon ion-social-usd-outline "></i>
-  <input type="range" name="volumen" >
-  <i class="icon  ion-social-usd " style="color:#ffd600"></i>
-</div>
- </li>
-<li>
-
-</li>
-</ul>
-
-
-	</ion-content>
+            <div class="input-label filtro">
+                Jornada de trabajo
+            </div>
+        </label>
+        <label class="item item-select item-input ">
+            <select ng-model="filtro.Jornada">
+                <option></option>
+                <option ng-repeat="x in Empleos">{{x.name}}</option>
+            </select>
+            <br>
+        </label>
+        <br>
+        <ul class="list">
+            <li class="item item-toggle item-input-wrapper g">
+                HTML5
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox" ng-model="filtro.html">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li>
+                <br>
+                <center>
+                    <p style="color:grey">3,000.000</p>
+                </center>
+                <div class="item range range-balanced g">
+                    <i class="icon ion-social-usd-outline "></i>
+                    <input type="range" name="volumen">
+                    <i class="icon  ion-social-usd " style="color:#ffd600"></i>
+                </div>
+            </li>
+            <li>
+            </li>
+        </ul>
+    </ion-content>
 </ion-modal-view>
