@@ -86,11 +86,14 @@
             </div>
         </div>
         <ion-list>
-            <ion-item class="button  tag" ng-hide="badera">
-                que paso loco dede
-                <a> <i class="icon icon-rigth ion-close"></i>
+
+            <ion-item class="button  tag" ng-hide="badera"
+            ng-repeat="i in user.idiomas" ng-click="eliminarI(i)">
+                {{i.idioma}}
+                <a> <i class="icon icon-rigth ion-close" style="font-size: 50px;"></i>
                 </a>
             </ion-item>
+
         </ion-list>
         <div class="row item-input item-input-wrapper g item-icon-letf ">
             <i class="icon ">
@@ -113,8 +116,8 @@
             </div>
         </div>
         <ion-list>
-            <ion-item class="button  tag">
-                Hello
+            <ion-item class="button  tag" ng-repeat="c in user.competencias" ng-click="eliminarC(c)">
+                {{c.competencia}}
                 <a> <i class="icon ion-close"></i>
                 </a>
             </ion-item>

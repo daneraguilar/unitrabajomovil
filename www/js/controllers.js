@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $ionicLoading, socket, service) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $ionicLoading, service, socket) {
         'use strict';
         // With the new view caching in Ionic, Controllers are only called
         // when they are recreated or on app start, instead of every page change.
@@ -12,20 +12,12 @@ angular.module('starter.controllers', [])
         $scope.loginData = {};
         $scope.registro = {};
         $scope.Session = {};
-
-
         $scope.Session.name = "Iniciar Session";
-
         $scope.pics = ["img/desarrollador.jpg"];
-
         // Form data for the login modal
-
         socket.on('d', function(d) {
 
         });
-
-
-
         $scope.Departamentos = [
             'AMAZONAS',
             'ANTIOQUIA',
@@ -60,9 +52,6 @@ angular.module('starter.controllers', [])
             'VAUPES',
             'VICHADA',
         ];
-
-
-
         $scope.Empleos = [
             { name: "daner", ap: "oscar" },
             { name: "oscar", ap: "maria" },
@@ -84,6 +73,10 @@ angular.module('starter.controllers', [])
 
         }).then(function(modal) {
             $scope.modal = modal;
+            if(!$scope.Session.state){
+                  $scope.login();
+            }
+            
 
         });
         $ionicModal.fromTemplateUrl('templates/filtros.html', {
@@ -92,7 +85,6 @@ angular.module('starter.controllers', [])
         }).then(function(modal) {
             $scope.filtro = modal;
         });
-
         // Triggered in the login modal to close it
         $scope.closeLogin = function() {
 
@@ -102,8 +94,6 @@ angular.module('starter.controllers', [])
             $scope.registro = {};
 
             $scope.registrar.hide();
-
-
         };
         $scope.doeditar = function() {
             var id = $scope.Session.user._id;
@@ -115,12 +105,9 @@ angular.module('starter.controllers', [])
                 $scope.Session.name = $scope.Session.user.nombres;
                 service.setUser($scope.Session.user);
 
-
                 $scope.showAlert("Perfil",
                     "editado corretamente!");
             })
-
-
         }
 
         // Open the login modal
@@ -130,7 +117,7 @@ angular.module('starter.controllers', [])
         };
         $scope.showregistro = function() {
             $scope.registrar.show();
-            $scope.closeLogin();
+            //$scope.closeLogin();
         };
         $scope.doregistro = function() {
                 service.egresadonew($scope.registro);
@@ -146,6 +133,7 @@ angular.module('starter.controllers', [])
 
                     $scope.showAlert("Session",
                         "email o password invalido");
+                    //   service.setUser(JSON.parse(res.data));
                 } else {
                     $scope.Session.user = res.data;
                     service.setUser($scope.Session.user);
@@ -160,11 +148,11 @@ angular.module('starter.controllers', [])
 
         };
         $scope.salirSession = function() {
-            localStorage.setItem('user', "");
-            $scope.Session.user = null;
+            service.removeUser();
+            $scope.Session.user = service.getUser();
             $scope.Session.state = false;
             $scope.loginData = {};
-            service.setUser($scope.Session.user);
+
 
         }
 
@@ -206,15 +194,18 @@ angular.module('starter.controllers', [])
 
         };
         var initsession = localStorage.getItem('user');
-
+        //console.log(initsession);
         if (initsession) {
-            //console.log(initsession);
-            $scope.Session.user = JSON.parse(initsession);
-            service.setUser($scope.Session.user);
+            //console.log(initsession);service.setUser($scope.Session.user);
+            service.setUser(JSON.parse(initsession));
+            $scope.Session.user = service.getUser();
             $scope.Session.state = true;
             $scope.Session.name = $scope.Session.user.nombres;
-            //$scope.closeLogin();
+            // $scope.closeLogin();
 
+        } else {
+
+            //  $scope.login();
         }
     })
     .controller('CV', function($scope, $stateParams, $ionicModal, $timeout, $ionicPopup, $ionicLoading, service) {
@@ -248,7 +239,7 @@ angular.module('starter.controllers', [])
 
                 var confirmPopup = $ionicPopup.confirm({
                     title: "Eliminar",
-                    template: 'esta seguro que quiere elimar esta Experiencia Laboral?'
+                    template: 'esta seguro que quiere eliminar esta Experiencia Laboral?'
                 });
                 confirmPopup.then(function(res) {
                     if (res) {
@@ -303,7 +294,7 @@ angular.module('starter.controllers', [])
 
                 var confirmPopup = $ionicPopup.confirm({
                     title: 'Eliminar',
-                    template: 'esta seguro que quiere elimar esta informacion academica?'
+                    template: 'esta seguro que quiere eliminar esta informacion academica?'
                 });
                 confirmPopup.then(function(res) {
                     if (res) {
@@ -367,7 +358,6 @@ angular.module('starter.controllers', [])
                     return false;
                 }
             });
-
         };
 
 
@@ -484,15 +474,81 @@ angular.module('starter.controllers', [])
             $scope.cvI.show();
         };
 
+        $scope.eliminarI = function(data) {
+            $scope.idioma = data;
+            var confirmPopup = $ionicPopup.confirm({
+                title: "Eliminar",
+                template: 'esta seguro que quiere eliminar este idioma?'
+            });
+            confirmPopup.then(function(res) {
+                if (res) {
+
+                    service.idiomadelete($scope.idioma._id, $scope.user._id).then(function(res) {
+                        service.finduser($scope.user._id).then(function(user) {
+
+
+                            service.setUser(user.data);
+                            $scope.user = service.getUser();
+
+                            $scope.showAlert("Idioma", "Eliminado corretamente!");
+                            $scope.idioma = {};
+                        })
+
+
+                    })
+                } else {
+
+                }
+            });
+        }
+        $scope.eliminarC = function(data) {
+            $scope.competecia = data;
+            var confirmPopup = $ionicPopup.confirm({
+                title: "Eliminar",
+                template: 'esta seguro que quiere eliminar este competencia?'
+            });
+            confirmPopup.then(function(res) {
+                if (res) {
+
+                    service.competenciadelete($scope.competecia._id, $scope.user._id).then(function(res) {
+                        service.finduser($scope.user._id).then(function(user) {
+
+
+                            service.setUser(user.data);
+                            $scope.user = service.getUser();
+
+                            $scope.showAlert("Competencia", " Eliminado corretamente!");
+                            $scope.competecia = {};
+                        })
+
+
+                    })
+                } else {
+
+                }
+            });
+        }
+
         // Perform the login action when the user submits the login form
         $scope.docvI = function() {
 
+            if ($scope.user) {
+                $scope.idioma._idcv = $scope.user._id;
 
-            // Simulate a login delay. Remove this and replace with your login
-            // code if using a login system
-            $timeout(function() {
-                $scope.closecvI();
-            }, 500);
+                service.idiomanew($scope.idioma).then(function(res) {
+                    service.finduser($scope.user._id).then(function(user) {
+
+                        console.log(user.data);
+                        service.setUser(user.data);
+                        $scope.user = service.getUser();
+
+                        $scope.showAlert("Idioma", "se agrego corretamente!");
+                        $scope.idioma = {};
+                    })
+
+                })
+            }
+
         };
         $ionicModal.fromTemplateUrl('templates/mcvC.html', {
             scope: $scope
@@ -519,13 +575,22 @@ angular.module('starter.controllers', [])
         // Perform the login action when the user submits the login form
         $scope.docvC = function() {
 
+            if ($scope.user) {
+                $scope.competecia._idcv = $scope.user._id;
 
-            // Simulate a login delay. Remove this and replace with your login
-            // code if using a login system
+                service.competencianew($scope.competecia).then(function(res) {
+                    service.finduser($scope.user._id).then(function(user) {
 
-            $timeout(function() {
-                $scope.closecvC();
-            }, 500);
+                        console.log(user.data);
+                        service.setUser(user.data);
+                        $scope.user = service.getUser();
+
+                        $scope.showAlert("Competencia", "se agrego corretamente!");
+                        $scope.competecia = {};
+                    })
+
+                })
+            }
         };
         $ionicLoading.show({
             content: 'Loading',

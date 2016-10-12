@@ -78,7 +78,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
         var servicios = {};
         var wait = $q.defer();
         servicios.User = {}
+        servicios.removeUser =function(){
+            localStorage.removeItem('user');
+             servicios.User = {};
+        }
         servicios.getUser = function() {
+           var tempUser = servicios.User;
 
             //console.log("salir session");
             return servicios.User;
@@ -86,21 +91,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
         servicios.setUser = function(user) {
             servicios.User = user;
             localStorage.setItem('user', JSON.stringify(user));
-            console.log(user);
+            servicios.User.telefono = parseInt(user.telefono);
+            console.log();
+          //  console.log(user);
             //  console.log("entrar session");
         }
         servicios.finduser = function(id) {
-                return $http.get("http://localhost:3000/API/egresadoshow/" + id)
-
+            return $http.get("http://localhost:3000/API/egresadoshow/" + id)
             }
             //////-*********egresado ---//////
         servicios.egresadonew = function(datos) {
             return $http.post("http://localhost:3000/API/egresadonew", JSON.stringify(datos))
         }
-
         servicios.egresadoupdate = function(_id, datos) {
             return $http.put("http://localhost:3000/API/egresadoupdate/" + _id, JSON.stringify(datos))
-
         }
         servicios.egresadoauth = function(datos) {
             return $http.post("http://localhost:3000/API/egresadoauth", JSON.stringify(datos))
@@ -109,27 +113,33 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
             return $http.post("http://localhost:3000/API/experiencianew", JSON.stringify(datos))
         }
         servicios.experienciadelete = function(id, idcv) {
-
-
             return $http.post("http://localhost:3000/API/experienciadelete/" + id, { '_idcv': idcv })
         }
         servicios.experienciaupdate = function(datos) {
-
             return $http.put("http://localhost:3000/API/experienciaupdate/" + datos._id, JSON.stringify(datos))
         }
         servicios.estudionew = function(datos) {
             return $http.post("http://localhost:3000/API/estudionew", JSON.stringify(datos))
         }
         servicios.estudiodelete = function(id, idcv) {
-
-
             return $http.post("http://localhost:3000/API/estudiodelete/" + id, { '_idcv': idcv })
         }
         servicios.estudioupdate = function(datos) {
 
             return $http.put("http://localhost:3000/API/estudioupdate/" + datos._id, JSON.stringify(datos))
         }
-
+        servicios.idiomanew = function(datos) {
+            return $http.post("http://localhost:3000/API/idiomanew", JSON.stringify(datos))
+        }
+        servicios.idiomadelete = function(id, idcv) {
+            return $http.post("http://localhost:3000/API/idiomadelete/" + id, { '_idcv': idcv })
+        }
+        servicios.competencianew = function(datos) {
+            return $http.post("http://localhost:3000/API/competencianew", JSON.stringify(datos))
+        }
+        servicios.competenciadelete = function(id, idcv) {
+            return $http.post("http://localhost:3000/API/competenciadelete/" + id, { '_idcv': idcv })
+        }
         return servicios;
 
     });
