@@ -12,11 +12,12 @@ angular.module('starter.controllers', [])
         $scope.loginData = {};
         $scope.registro = {};
         $scope.Session = {};
+        $scope.mesages=[];
         $scope.Session.name = "Iniciar Session";
         $scope.pics = ["img/desarrollador.jpg"];
         // Form data for the login modal
-        socket.on('d', function(d) {
-
+        socket.on('daner', function(d) {
+          // $scope.mesages.push(d);
         });
         $scope.Departamentos = [
             'AMAZONAS',

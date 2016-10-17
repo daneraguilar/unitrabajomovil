@@ -1,5 +1,7 @@
 /* Empty. Add your own CSS if you like */
-
+.b{
+    background: url('../img/noise.png');
+}
 .verde {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ecf6e2+0,c3d8ac+50,b8d19d+51,e3f0d6+100 */
     background: rgb(236, 246, 226);
