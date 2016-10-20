@@ -77,7 +77,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
     .factory('service', function($http, $q, $ionicLoading, $timeout, $ionicPopup) {
         var servicios = {};
         var wait = $q.defer();
-        servicios.User = {}
+        servicios.User = {};
         servicios.removeUser =function(){
             localStorage.removeItem('user');
              servicios.User = {};

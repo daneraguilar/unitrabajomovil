@@ -12,12 +12,13 @@ angular.module('starter.controllers', [])
         $scope.loginData = {};
         $scope.registro = {};
         $scope.Session = {};
-        $scope.mesages=[];
+       
         $scope.Session.name = "Iniciar Session";
         $scope.pics = ["img/desarrollador.jpg"];
         // Form data for the login modal
         socket.on('daner', function(d) {
-          // $scope.mesages.push(d);
+          $scope.Empleos.push(d);
+
         });
         $scope.Departamentos = [
             'AMAZONAS',
@@ -54,7 +55,7 @@ angular.module('starter.controllers', [])
             'VICHADA',
         ];
         $scope.Empleos = [
-            { name: "daner", ap: "oscar" },
+            { name: "daner", ap: "oscar"},
             { name: "oscar", ap: "maria" },
             { name: "maria", ap: "daner" },
             { name: "sebastian", ap: "maria" },
