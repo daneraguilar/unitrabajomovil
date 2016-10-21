@@ -12,12 +12,12 @@ angular.module('starter.controllers', [])
         $scope.loginData = {};
         $scope.registro = {};
         $scope.Session = {};
-       
+
         $scope.Session.name = "Iniciar Session";
         $scope.pics = ["img/desarrollador.jpg"];
         // Form data for the login modal
         socket.on('daner', function(d) {
-          $scope.Empleos.push(d);
+            $scope.Empleos.push(d);
 
         });
         $scope.Departamentos = [
@@ -55,12 +55,19 @@ angular.module('starter.controllers', [])
             'VICHADA',
         ];
         $scope.Empleos = [
-            { name: "daner", ap: "oscar"},
+            { name: "daner", ap: "oscar" },
             { name: "oscar", ap: "maria" },
             { name: "maria", ap: "daner" },
             { name: "sebastian", ap: "maria" },
             { name: "marta", ap: "daner" }
         ];
+        $scope.showAlert = function(t, b) {
+            var alertPopup = $ionicPopup.alert({
+                title: t,
+                template: b
+            });
+
+        }
 
         $ionicModal.fromTemplateUrl('templates/mresgistrar.html', {
             scope: $scope
@@ -75,10 +82,10 @@ angular.module('starter.controllers', [])
 
         }).then(function(modal) {
             $scope.modal = modal;
-            if(!$scope.Session.state){
-                  $scope.login();
+            if (!$scope.Session.state) {
+                $scope.login();
             }
-            
+
 
         });
         $ionicModal.fromTemplateUrl('templates/filtros.html', {
@@ -109,7 +116,11 @@ angular.module('starter.controllers', [])
 
                 $scope.showAlert("Perfil",
                     "editado corretamente!");
-            })
+            }, function(err) {
+                $ionicLoading.hide();
+                $scope.showAlert('error', err.data.message);
+                console.log(err.data);
+            });
         }
 
         // Open the login modal
@@ -122,39 +133,57 @@ angular.module('starter.controllers', [])
             //$scope.closeLogin();
         };
         $scope.doregistro = function() {
-                service.egresadonew($scope.registro);
-                $scope.closeregistro();
+                $ionicLoading.show();
+                service.egresadonew($scope.registro).then(function(succes) {
+                    $ionicLoading.hide();
+
+                    $scope.showAlert('error', err.data.mesagge);
+
+                }, function(err) {
+                    $ionicLoading.hide();
+                    $scope.showAlert('error', err.data.message);
+                    console.log(err.data);
+                });
+
+
+
 
             }
             // Perform the login action when the user submits the login form
         $scope.doLogin = function() {
+            $ionicLoading.show();
             //console.log($scope.loginData);
             service.egresadoauth($scope.loginData).then(function(res) {
                 console.log(res);
                 if (!res.data) {
-
+                    $ionicLoading.hide();
                     $scope.showAlert("Session",
                         "email o password invalido");
                     //   service.setUser(JSON.parse(res.data));
                 } else {
+                    $ionicLoading.hide();
                     $scope.Session.user = res.data;
                     service.setUser($scope.Session.user);
                     $scope.Session.state = true;
-                    $scope.showAlert("Session",
-                        "ha inicioado session corretamente!");
+                   
                     $scope.Session.name = $scope.Session.user.nombres;
                     $scope.closeLogin();
                 }
 
-            })
+            }, function(err) {
+                $ionicLoading.hide();
+                $scope.showAlert('error', err.data.message);
+                console.log(err.data);
+            });
 
         };
         $scope.salirSession = function() {
+            $ionicLoading.show();
             service.removeUser();
             $scope.Session.user = service.getUser();
             $scope.Session.state = false;
             $scope.loginData = {};
-
+            $ionicLoading.hide();
 
         }
 
@@ -195,18 +224,19 @@ angular.module('starter.controllers', [])
             }, 500);
 
         };
-        var initsession = localStorage.getItem('user');
+        var initsession = JSON.parse(localStorage.getItem('user'));
         //console.log(initsession);
         if (initsession) {
+      
             //console.log(initsession);service.setUser($scope.Session.user);
-            service.setUser(JSON.parse(initsession));
-            $scope.Session.user = service.getUser();
-            $scope.Session.state = true;
-            $scope.Session.name = $scope.Session.user.nombres;
+     $scope.loginData.email=initsession.email;
+     console.log(initsession.email);
+     $scope.loginData.password = initsession.password;
+     $scope.doLogin();
             // $scope.closeLogin();
 
         } else {
-
+            
             //  $scope.login();
         }
     })
@@ -238,26 +268,34 @@ angular.module('starter.controllers', [])
 
         $scope.editarE = function(l) {
             if (l == 2) {
-
                 var confirmPopup = $ionicPopup.confirm({
                     title: "Eliminar",
                     template: 'esta seguro que quiere eliminar esta Experiencia Laboral?'
                 });
                 confirmPopup.then(function(res) {
-                    if (res) {
 
+                    if (res) {
+                        $ionicLoading.show();
                         service.experienciadelete($scope.experiencia._id, $scope.user._id).then(function(res) {
                             service.finduser($scope.user._id).then(function(user) {
 
 
                                 service.setUser(user.data);
                                 $scope.user = service.getUser();
-
+                                $ionicLoading.hide();
                                 $scope.showAlert("Experiencia", "se Elimino corretamente!");
                                 $scope.experiencia = {};
+                            }, function(err) {
+                                $ionicLoading.hide();
+                                $scope.showAlert("Experiencia", "Error eliminar");
+                                $scope.estudio = {};
                             })
 
 
+                        }, function(err) {
+                            $ionicLoading.hide();
+                            $scope.showAlert("Experiencia", "Error eliminar");
+                            $scope.estudio = {};
                         })
                     } else {
 
@@ -274,9 +312,17 @@ angular.module('starter.controllers', [])
                 });
                 confirmPopup.then(function(res) {
                     if (res) {
+                        $ionicLoading.show();
                         $scope.experiencia._idcv = $scope.user._id;
                         service.experienciaupdate($scope.experiencia).then(function(res) {
-                            console.log(res.data);
+                            console.log("c");
+                            $ionicLoading.hide();
+                            $scope.showAlert("Experiencia", "editadob corretamente!");
+
+                        }, function(err) {
+                            $scope.showAlert("Experiencia", "Error editando");
+                            $scope.estudio = {};
+                            $ionicLoading.hide();
                         });
                     } else {
 
@@ -301,18 +347,30 @@ angular.module('starter.controllers', [])
                 confirmPopup.then(function(res) {
                     if (res) {
 
+                        $ionicLoading.show();
+
                         service.estudiodelete($scope.estudio._id, $scope.user._id).then(function(res) {
                             service.finduser($scope.user._id).then(function(user) {
 
 
                                 service.setUser(user.data);
                                 $scope.user = service.getUser();
-
-                                $scope.showAlert("Experiencia", "se Elimino corretamente!");
+                                $ionicLoading.hide();
+                                $scope.showAlert("Formacion", "se Elimino corretamente!");
                                 $scope.estudio = {};
+
+                            }, function(err) {
+                                $ionicLoading.hide();
+                                $scope.showAlert("Formacion", "Error eliminar");
+                                $scope.estudio = {};
+
                             })
 
 
+                        }, function(err) {
+                            $ionicLoading.hide();
+                            $scope.showAlert("Formacion", "Error eliminar");
+                            $scope.estudio = {};
                         })
 
                     } else {
@@ -330,9 +388,17 @@ angular.module('starter.controllers', [])
                 });
                 confirmPopup.then(function(res) {
                     if (res) {
+                        $ionicLoading.show();
                         $scope.estudio._idcv = $scope.user._id;
                         service.estudioupdate($scope.estudio).then(function(res) {
-                            console.log(res.data);
+                            //    console.log(res.data);
+                            $ionicLoading.hide();
+                            $scope.showAlert("Formacion", "editadob corretamente!");
+
+                        }, function(err) {
+                            $scope.showAlert("Experiencia", "Error editando");
+                            $scope.estudio = {};
+                            $ionicLoading.hide();
                         });
                     } else {
 
@@ -391,7 +457,7 @@ angular.module('starter.controllers', [])
 
         // Perform the login action when the user submits the login form
         $scope.docvE = function(exp) {
-
+            $ionicLoading.show();
             if ($scope.user) {
                 $scope.experiencia._idcv = $scope.user._id;
 
@@ -401,11 +467,16 @@ angular.module('starter.controllers', [])
                         console.log(user.data);
                         service.setUser(user.data);
                         $scope.user = service.getUser();
-
+                        $ionicLoading.hide();
                         $scope.showAlert("Experiencia", "se agrego corretamente!");
                         $scope.experiencia = {};
+                        //  $scope.Session.user = service.getUser();
+
                     })
 
+                }, function(err) {
+                    $ionicLoading.hide();
+                    $scope.showAlert("Experiencia", "error al agregar ");
                 })
             }
 
@@ -436,7 +507,9 @@ angular.module('starter.controllers', [])
 
         // Perform the login action when the user submits the login form
         $scope.docvF = function() {
+
             if ($scope.user) {
+                $ionicLoading.show();
                 $scope.estudio._idcv = $scope.user._id;
 
                 service.estudionew($scope.estudio).then(function(res) {
@@ -449,8 +522,14 @@ angular.module('starter.controllers', [])
 
                         $scope.showAlert("Formacion", "se agrego corretamente!");
                         $scope.estudio = {};
+                        // $scope.Session.user = service.getUser();
+                        $ionicLoading.hide();
+
                     })
 
+                }, function(err) {
+                    $ionicLoading.hide();
+                    $scope.showAlert("formacion", "error al agregar ");
                 })
             }
         };
@@ -484,19 +563,28 @@ angular.module('starter.controllers', [])
             });
             confirmPopup.then(function(res) {
                 if (res) {
-
+                    $ionicLoading.show();
                     service.idiomadelete($scope.idioma._id, $scope.user._id).then(function(res) {
                         service.finduser($scope.user._id).then(function(user) {
 
 
                             service.setUser(user.data);
                             $scope.user = service.getUser();
-
+                            $ionicLoading.hide();
                             $scope.showAlert("Idioma", "Eliminado corretamente!");
                             $scope.idioma = {};
+
+                        }, function(err) {
+                            $ionicLoading.hide();
+                            $scope.showAlert("Idioma", "Error eliminar");
+                            $scope.estudio = {};
                         })
 
 
+                    }, function(err) {
+                        $ionicLoading.hide();
+                        $scope.showAlert("Idioma", "Error eliminar");
+                        $scope.estudio = {};
                     })
                 } else {
 
@@ -511,6 +599,7 @@ angular.module('starter.controllers', [])
             });
             confirmPopup.then(function(res) {
                 if (res) {
+                    $ionicLoading.show();
 
                     service.competenciadelete($scope.competecia._id, $scope.user._id).then(function(res) {
                         service.finduser($scope.user._id).then(function(user) {
@@ -518,12 +607,20 @@ angular.module('starter.controllers', [])
 
                             service.setUser(user.data);
                             $scope.user = service.getUser();
-
+                            $ionicLoading.hide();
                             $scope.showAlert("Competencia", " Eliminado corretamente!");
                             $scope.competecia = {};
+                        }, function(err) {
+                            $ionicLoading.hide();
+                            $scope.showAlert("Competecia", "Error eliminar");
+                            $scope.estudio = {};
                         })
 
 
+                    }, function(err) {
+                        $ionicLoading.hide();
+                        $scope.showAlert("Competencia", "Error eliminar");
+                        $scope.estudio = {};
                     })
                 } else {
 
@@ -535,6 +632,7 @@ angular.module('starter.controllers', [])
         $scope.docvI = function() {
 
             if ($scope.user) {
+                $ionicLoading.show();
                 $scope.idioma._idcv = $scope.user._id;
 
                 service.idiomanew($scope.idioma).then(function(res) {
@@ -546,8 +644,14 @@ angular.module('starter.controllers', [])
 
                         $scope.showAlert("Idioma", "se agrego corretamente!");
                         $scope.idioma = {};
+                        // $scope.Session.user = service.getUser();
+                        $ionicLoading.hide();
+
                     })
 
+                }, function(err) {
+                    $ionicLoading.hide();
+                    $scope.showAlert("Idioma", "error al agregar ");
                 })
             }
 
@@ -578,6 +682,7 @@ angular.module('starter.controllers', [])
         $scope.docvC = function() {
 
             if ($scope.user) {
+                $ionicLoading.show();
                 $scope.competecia._idcv = $scope.user._id;
 
                 service.competencianew($scope.competecia).then(function(res) {
@@ -589,8 +694,13 @@ angular.module('starter.controllers', [])
 
                         $scope.showAlert("Competencia", "se agrego corretamente!");
                         $scope.competecia = {};
+                        $ionicLoading.hide();
+
                     })
 
+                }, function(err) {
+                    $ionicLoading.hide();
+                    $scope.showAlert("Competencia", "error agregando")
                 })
             }
         };
@@ -610,7 +720,7 @@ angular.module('starter.controllers', [])
     })
 
 
-.controller('aplicaciones', function($scope, $stateParams, $ionicModal, $timeout, $ionicPopup, $ionicLoading) {
+    .controller('aplicaciones', function($scope, $stateParams, $ionicModal, $timeout, $ionicPopup, $ionicLoading) {
     $scope.estado = ['', '', 'stado'];
     $ionicLoading.show({
         content: 'Loading',
