@@ -25,7 +25,7 @@
             <label class="item item-input item-select">
                 <select ng-model="estudio.nivel" required="">
                     <option></option>
-                    <option ng-repeat="x in Departamentos">{{x}}</option>
+                    <option ng-repeat="x in nivelStudio">{{x}}</option>
                 </select>
                 <br>
             </label>
@@ -67,12 +67,13 @@
             <div class="row">
                 <div class="col col-50">
                     <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar">
-                        <input type="date" placeholder="inicio" ng-model="estudio.inicio" required="">
+                        <input type="date" placeholder="inicio" value="{{estudio.inicio | date:'yyyy-MM-dd'}}"  ng-model="estudio.inicio" required="">
                     </label>
                 </div>
                 <div class="col col-50">
                     <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar">
-                        <input type="date" placeholder="Final" ng-model="estudio.final" ng-hide="estudio.actualmente">
+                        <input type="date" placeholder="Final"  value="{{studio.final | date:'yyyy-MM-dd'}}"   ng-model="estudio.final" ng-hide="estudio.actualmente"
+                        >
                     </label>
                 </div>
             </div>

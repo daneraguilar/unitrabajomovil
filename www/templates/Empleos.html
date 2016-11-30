@@ -12,22 +12,24 @@
             </button>
         </div>
         <div class="list">
-            <a ng-repeat="x in Empleos | filter :buscar | filter :filtro.Category | filter :filtro.Departament | filter :filtro.City
+            <a ng-repeat="x in ofertas | filter :buscar  | filter :filtro.Departament | filter :filtro.City
     | filter :filtro.TipoContrato | filter :filtro.Jornada" class="item item-thumbnail-left g">
                 <img ng-src={{pics[0]}}>
                 <center>
-                    <h2>Empresa</h2>
-                </center>
-                <p>{{x.name}}</p>
-                <p>{{x.ap}}</p>
-                <br>
-                <br>
-                <p>
+                    <h2 style="margin:8px">{{x.perfil}}</h2>
+                    
+                      <p>{{x.descripcion}}</p>
+               
+               
+              
+                
+                <p style="margin:4px>
                     <i class="icon ion-ios-stopwatch-outline placeholder-icon " style="color:black"> <spam style="color:black">Fecha</spam></i>
-                    <i class="icon ion-social-usd placeholder-icon " style="color:#ffd600"><spam style="color:black"> Salario</spam></i>
-                    <i class="icon ion-location placeholder-icon " style="color:red"> <spam style="color:black"> localidad 
+                    <i class="icon ion-social-usd placeholder-icon " style="color:#ffd600"><spam style="color:black"> {{x.salario}}</spam></i>
+                    <i class="icon ion-location placeholder-icon " style="color:red"> <spam style="color:black">{{ x.cuidad}} 
       </spam></i>
                 </p>
+                 </center>
             </a>
         </div>
     </ion-content>

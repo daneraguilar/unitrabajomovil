@@ -66,12 +66,12 @@
             <div class="row">
                 <div class="col col-50">
                     <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar">
-                        <input type="date" placeholder="inicio" ng-model="experiencia.inicio" required="">
+                        <input type="date" placeholder="inicio"  value="{{experiencia.inicio | date:'yyyy-MM-dd'}}"   ng-model="experiencia.inicio"  required="">
                     </label>
                 </div>
                 <div class="col col-50">
                     <label class="item item-input  item-input-wrapper g icon icon-left ion-calendar">
-                        <input type="date" placeholder="final" ng-model="experiencia.final" ng-hide="experiencia.actualmente">
+                        <input type="date" placeholder="final"  value="{{experiencia.final | date:'yyyy-MM-dd'}}"  ng-model="experiencia.final"  ng-hide="experiencia.actualmente">
                     </label>
                 </div>
             </div>

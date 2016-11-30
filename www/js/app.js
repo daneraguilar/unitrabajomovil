@@ -66,7 +66,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
         $urlRouterProvider.otherwise('/app/Empleos');
     })
     .factory('socket', function(socketFactory) {
-        var myIoSocket = io.connect('localhost:3000');
+        var myIoSocket = io.connect('http://unitrabajoweb-92158.onmodulus.net');
 
         mySocket = socketFactory({
             ioSocket: myIoSocket
@@ -84,9 +84,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
         }
         servicios.getUser = function() {
            var tempUser = servicios.User;
+           
 
             //console.log("salir session");
-            return servicios.User;
+            return tempUser;
         }
         servicios.setUser = function(user) {
             servicios.User = user;
@@ -97,48 +98,52 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
             //  console.log("entrar session");
         }
         servicios.finduser = function(id) {
-            return $http.get("http://localhost:3000/API/egresadoshow/" + id)
+            return $http.get("http://unitrabajoweb-92158.onmodulus.net/API/egresadoshow/" + id)
             }
+
+        servicios.showOfertas = function(){
+            return $http.get("http://unitrabajoweb-92158.onmodulus.net/API/ofertashow")
+        }    
             //////-*********egresado ---//////
         servicios.egresadonew = function(datos) {
-            return $http.post("http://localhost:3000/API/egresadonew", JSON.stringify(datos))
+            return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/egresadonew", JSON.stringify(datos))
         }
         servicios.egresadoupdate = function(_id, datos) {
-            return $http.put("http://localhost:3000/API/egresadoupdate/" + _id, JSON.stringify(datos))
+            return $http.put("http://unitrabajoweb-92158.onmodulus.net/API/egresadoupdate/" + _id, JSON.stringify(datos))
         }
         servicios.egresadoauth = function(datos) {
-            return $http.post("http://localhost:3000/API/egresadoauth", JSON.stringify(datos))
+            return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/egresadoauth", JSON.stringify(datos))
         }
         servicios.experiencianew = function(datos) {
-            return $http.post("http://localhost:3000/API/experiencianew", JSON.stringify(datos))
+            return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/experiencianew", JSON.stringify(datos))
         }
         servicios.experienciadelete = function(id, idcv) {
-            return $http.post("http://localhost:3000/API/experienciadelete/" + id, { '_idcv': idcv })
+            return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/experienciadelete/" + id, { '_idcv': idcv })
         }
         servicios.experienciaupdate = function(datos) {
-            return $http.put("http://localhost:3000/API/experienciaupdate/" + datos._id, JSON.stringify(datos))
+            return $http.put("http://unitrabajoweb-92158.onmodulus.net/API/experienciaupdate/" + datos._id, JSON.stringify(datos))
         }
         servicios.estudionew = function(datos) {
-            return $http.post("http://localhost:3000/API/estudionew", JSON.stringify(datos))
+            return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/estudionew", JSON.stringify(datos))
         }
         servicios.estudiodelete = function(id, idcv) {
-            return $http.post("http://localhost:3000/API/estudiodelete/" + id, { '_idcv': idcv })
+            return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/estudiodelete/" + id, { '_idcv': idcv })
         }
         servicios.estudioupdate = function(datos) {
 
-            return $http.put("http://localhost:3000/API/estudioupdate/" + datos._id, JSON.stringify(datos))
+            return $http.put("http://unitrabajoweb-92158.onmodulus.net/API/estudioupdate/" + datos._id, JSON.stringify(datos))
         }
         servicios.idiomanew = function(datos) {
-            return $http.post("http://localhost:3000/API/idiomanew", JSON.stringify(datos))
+            return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/idiomanew", JSON.stringify(datos))
         }
         servicios.idiomadelete = function(id, idcv) {
-            return $http.post("http://localhost:3000/API/idiomadelete/" + id, { '_idcv': idcv })
+            return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/idiomadelete/" + id, { '_idcv': idcv })
         }
         servicios.competencianew = function(datos) {
-            return $http.post("http://localhost:3000/API/competencianew", JSON.stringify(datos))
+            return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/competencianew", JSON.stringify(datos))
         }
         servicios.competenciadelete = function(id, idcv) {
-            return $http.post("http://localhost:3000/API/competenciadelete/" + id, { '_idcv': idcv })
+            return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/competenciadelete/" + id, { '_idcv': idcv })
         }
         return servicios;
 

@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $ionicLoading, service, socket) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $ionicLoading, service) {
         'use strict';
         // With the new view caching in Ionic, Controllers are only called
         // when they are recreated or on app start, instead of every page change.
@@ -12,14 +12,21 @@ angular.module('starter.controllers', [])
         $scope.loginData = {};
         $scope.registro = {};
         $scope.Session = {};
+        $scope.ofertas=[];
+        service.showOfertas().then(function(res){
+           
+            $scope.ofertas=res.data;
+             console.log("resivido");
+         
+
+        },function(err){
+
+        });
 
         $scope.Session.name = "Iniciar Session";
         $scope.pics = ["img/desarrollador.jpg"];
         // Form data for the login modal
-        socket.on('daner', function(d) {
-            $scope.Empleos.push(d);
-
-        });
+       
         $scope.Departamentos = [
             'AMAZONAS',
             'ANTIOQUIA',
@@ -137,7 +144,7 @@ angular.module('starter.controllers', [])
                 service.egresadonew($scope.registro).then(function(succes) {
                     $ionicLoading.hide();
 
-                    $scope.showAlert('error', err.data.mesagge);
+                    $scope.showAlert('Resgistrar', "Registrado correctamente!");
 
                 }, function(err) {
                     $ionicLoading.hide();
@@ -248,15 +255,15 @@ angular.module('starter.controllers', [])
         $scope.estudio = {};
         $scope.idioma = {};
         $scope.competecia = {};
-
-        $scope.user = service.getUser();
-        $scope.dataE = [
-            { empresa: 'unicesar', cargo: "profesor", departamento: "CESAR", actualmente: true, logros: "muchos", inicio: new Date() }
-        ];
-
-        $scope.dataF = [
-            { Institucion: 'unicesar', Nivel: "ATLANTICO", Area: "CESAR", Estado: "proceso", logros: "muchos" }
-        ];
+        $scope.nivelStudio=["Pregrado","Especializacion","Maestria","Doctorado","Posdoctorado"];
+        $scope.idiomas=["Ingles","Español","Frances","Mandarin","otro"];
+        $scope.nivelIdiomas=["A1","A2","B1","B2","C1","C2"];
+        //$scope.getUser = function(){
+               $scope.user = service.getUser();
+        //}    
+       
+       
+       
 
         $scope.showAlert = function(t, b) {
             var alertPopup = $ionicPopup.alert({
@@ -459,10 +466,10 @@ angular.module('starter.controllers', [])
         $scope.docvE = function(exp) {
             $ionicLoading.show();
             if ($scope.user) {
-                $scope.experiencia._idcv = $scope.user._id;
+                $scope.experiencia._idcv = service.getUser()._id;
 
                 service.experiencianew($scope.experiencia).then(function(res) {
-                    service.finduser($scope.user._id).then(function(user) {
+                    service.finduser(service.getUser()._id).then(function(user) {
 
                         console.log(user.data);
                         service.setUser(user.data);
@@ -510,11 +517,11 @@ angular.module('starter.controllers', [])
 
             if ($scope.user) {
                 $ionicLoading.show();
-                $scope.estudio._idcv = $scope.user._id;
+                $scope.estudio._idcv = service.getUser()._id;
 
                 service.estudionew($scope.estudio).then(function(res) {
                     // console.log(res.data);
-                    service.finduser($scope.user._id).then(function(user) {
+                    service.finduser(service.getUser()._id).then(function(user) {
 
                         //console.log(user.data);
                         service.setUser(user.data);
@@ -636,7 +643,7 @@ angular.module('starter.controllers', [])
                 $scope.idioma._idcv = $scope.user._id;
 
                 service.idiomanew($scope.idioma).then(function(res) {
-                    service.finduser($scope.user._id).then(function(user) {
+                    service.finduser(service.getUser()._id).then(function(user) {
 
                         console.log(user.data);
                         service.setUser(user.data);
@@ -683,12 +690,15 @@ angular.module('starter.controllers', [])
 
             if ($scope.user) {
                 $ionicLoading.show();
-                $scope.competecia._idcv = $scope.user._id;
+                $scope.competecia._idcv = service.getUser()._id;
+
+
 
                 service.competencianew($scope.competecia).then(function(res) {
-                    service.finduser($scope.user._id).then(function(user) {
+                	console.log(res.data);
+                    service.finduser(service.getUser()._id).then(function(user) {
 
-                        console.log(user.data);
+                       // console.log(user.data);
                         service.setUser(user.data);
                         $scope.user = service.getUser();
 
