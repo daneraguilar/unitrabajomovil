@@ -1,7 +1,7 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="false" style="background-color: #FDFDFD;  font: italic bold 12px/30px Georgia, serif;">
     <ion-side-menu-content>
         <ion-nav-bar class="bar2">
-            <ion-nav-back-button>
+            <ion-nav-back-button style="color: white">
             </ion-nav-back-button>
             <ion-nav-buttons side="left">
                 <button class="button button-icon button-assertive ion-navicon" menu-toggle="left">
@@ -11,9 +11,9 @@
         <ion-nav-view name="menuContent"></ion-nav-view>
     </ion-side-menu-content>
     <ion-side-menu side="left">
-        <ion-content class="verde2 ">
-            <img class="full-image" src="img/sunicesar2.jpg">
-            <ion-list class="">
+        <ion-content class="verde ">
+            <img class="full-image" src="img/sunicesar2.jpg" >
+            
                 <ion-item menu-close href="#/app/Empleos" class=" item-icon-left ">
                     <i class="icon ">
           <img src="img/buscar.jpg"  width="27" height="27" alt="">
@@ -36,12 +36,11 @@
                     <i class="icon ion-power" style="color:green"></i>
                     <span class="font">{{Session.name}}</span>
                 </ion-item>
-            </ion-list>
+           
             <br>
-            <br>
-            <br>
+            
             <center>
-                <img class="" src="img/unilogo.png" height="150" width="150">
+                <img class="" src="img/icon.png" height="150" width="200">
             </center>
         </ion-content>
     </ion-side-menu>

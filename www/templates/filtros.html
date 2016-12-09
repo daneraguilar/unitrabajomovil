@@ -10,21 +10,7 @@
     <ion-content class="padding verde">
         <br>
     
-        <label class="item item-input  item-input-wrapper g">
-            <i class="icon placeholder-icon ">
-    <img src="img/contry.png" alt="" width=30 height="30">
-  </i>
-            <div class="input-label filtro">
-                Departamento
-            </div>
-        </label>
-        <label class="item item-select item-input ">
-            <select ng-model="filtro.Departament">
-                <option></option>
-                <option ng-repeat="x in Departamentos">{{x}}</option>
-            </select>
-            <br>
-        </label>
+        
         <br>
         <label class="item item-input  item-input-wrapper g">
             <i class="icon placeholder-icon ">
@@ -37,7 +23,7 @@
         <label class="item item-select item-input ">
             <select ng-model="filtro.City">
                 <option></option>
-                <option ng-repeat="x in Empleos">{{x.name}}</option>
+                <option ng-repeat="x in ofertas | unique: 'cuidad'">{{x.cuidad}}</option>
             </select>
             <br>
         </label>
@@ -53,7 +39,7 @@
         <label class="item item-select item-input ">
             <select ng-model="filtro.TipoContrato">
                 <option></option>
-                <option ng-repeat="x in Empleos">{{x.ap}}</option>
+                <option ng-repeat="x in ofertas  | unique: 'contracto' ">{{x.contracto}}</option>
             </select>
             <br>
         </label>
@@ -69,29 +55,20 @@
         <label class="item item-select item-input ">
             <select ng-model="filtro.Jornada">
                 <option></option>
-                <option ng-repeat="x in Empleos">{{x.name}}</option>
+                <option ng-repeat="x in ofertas | unique: 'jornada'">{{x.jornada}}</option>
             </select>
             <br>
         </label>
         <br>
         <ul class="list">
-            <li class="item item-toggle item-input-wrapper g">
-                HTML5
-                <label class="toggle toggle-balanced">
-                    <input type="checkbox" ng-model="filtro.html">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
-            </li>
-            <li>
+       
                 <br>
                 <center>
-                    <p style="color:grey">3,000.000</p>
+                    <p style="color:white">{{filtro.Fange| currency : symbol : fractionSize}}</p>
                 </center>
                 <div class="item range range-balanced g">
                     <i class="icon ion-social-usd-outline "></i>
-                    <input type="range" name="volumen">
+                    <input type="range" name="volumen" ng-model="filtro.Fange" min="0" max="5000000">
                     <i class="icon  ion-social-usd " style="color:#ffd600"></i>
                 </div>
             </li>

@@ -1,0 +1,113 @@
+<ion-view>
+    <ion-nav-title>
+        <span class="font2">    Oferta   </span>
+    </ion-nav-title>
+    <ion-content padding="10" style="background-color:  #f5f5f5">
+    <br>
+    <div align="center" style="background-color: : #FDFDFD;border:1px solid #FDFDFD;  font: italic bold 12px/30px Georgia, serif;">
+
+    <h4 style="color: #6EB929" >Perfil</h4>
+    <p style="color: black">{{oferta.perfil}}</p>
+    </div>
+    <br>
+       <div align="center" style="background-color: : #FDFDFD;border:1px solid #FDFDFD;  font: italic bold 12px/30px Georgia, serif;">
+        <h4 style="color: #6EB929" >Descripcion</h4>
+        <p style="color:black;font-size: 14px">{{oferta.descripcion}}</p>
+        </div>
+    
+     <br>
+
+    <div class="row" style="background-color: : #FDFDFD;border:1px solid #FDFDFD;  font: italic bold 12px/30px Georgia, serif;">
+      <div class="col col-50" align="center" >
+        <h4 style="color: #6EB929" >Localización
+     
+      </h4>
+       <p style="color:black;font-size: 15px" >{{oferta.cuidad}}</p>
+      </div>
+      <div class="col col-50" align="center">
+
+       <h4 style="color: #6EB929" >
+        Salario
+         </h4>
+
+    
+    <p style="color:black;font-size: 15px" >{{oferta.salario | currency : symbol : fractionSize}}</p>
+  
+        
+      </div>
+
+    </div>
+
+    
+  
+  
+     
+      <br><br>
+       <div class="row" style="background-color: : #FDFDFD;border:1px solid #FDFDFD;  font: italic bold 12px/30px Georgia, serif;">
+      <div class="col col-50" align="center">
+        <h4 style="color: #6EB929" >Jornada 
+     
+      </h4>
+       <p style="color:black;font-size: 15px">{{oferta.jornada}}</p>
+      </div>
+      <div class="col col-50" align="center">
+
+       <h4 style="color: #6EB929" >
+        Educaccion
+       
+       </h4>
+    
+    <p style="color:black;font-size: 15px">{{oferta.educacion}}</p>
+    
+     
+        
+      </div>
+
+    </div>
+
+      
+<br>
+<br>
+
+
+    <div class="row" style="background-color: : #FDFDFD;border:1px solid #FDFDFD;  font: italic bold 12px/30px Georgia, serif;">
+<div class="col col-50" align="center" >
+      <h4 style="color: #6EB929">
+    Experiencia
+      </h4>
+      <p style="color:black;font-size: 15px">{{oferta.experiencia}}</p>
+      </div>
+      <div class="col-50"></div>
+      </div>
+
+   
+     <div class="row" style="background-color: : #FDFDFD;border:1px solid #FDFDFD;  font: italic bold 12px/30px Georgia, serif;">
+  <div class="col .col-50" align="center">
+  	 <h4 style="color: #6EB929" >
+    Fecha de inicio  
+      </h4>
+      <p style="color:black;font-size: 15px">{{oferta.inicio | date:"yyyy-MM-dd"}}</p>
+
+  </div>
+  
+
+  <div class="col .col-50" align="center">
+  	 
+      <h4 style="color: #6EB929" >
+    Fecha de final 
+      </h4>
+      <p style="color:black;font-size: 15px">{{oferta.final | date:"yyyy-MM-dd"}}</p>
+  </div>
+</div>   
+    
+    
+            <button class="button button-block button2 " ng-click="aplicar(oferta._id)" ng-hide="ap">
+               Aplicar 
+            </button>
+             <button class="button button-block button3 " ng-click="aplicar(oferta._id)" ng-show="ap">
+               Desaplicar
+            </button>
+       
+        
+    </ion-content>
+</ion-view>

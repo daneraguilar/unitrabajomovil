@@ -22,7 +22,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
     });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
+
+    $ionicConfigProvider.backButton.text('Volver').icon('ion-ios7-arrow-left');
         $stateProvider
 
             .state('app', {
@@ -37,6 +39,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
             views: {
                 'menuContent': {
                     templateUrl: 'templates/Empleos.html',
+
+                }
+            }
+        })
+
+          .state('app.oferta', {
+            url: '/oferta/:oferta',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/oferta.html',
+                    controller: 'oferta'
 
                 }
             }
@@ -144,6 +157,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'btford.socket-io'])
         }
         servicios.competenciadelete = function(id, idcv) {
             return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/competenciadelete/" + id, { '_idcv': idcv })
+        }
+        servicios.aplicar = function(id, idcv) {
+            return $http.post("http://unitrabajoweb-92158.onmodulus.net/API/ofertaaplicar/" + id, { '_idcv': idcv })
         }
         return servicios;
 

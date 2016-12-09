@@ -1,41 +1,34 @@
 <ion-view>
     <ion-nav-title>
-        <span class="font2">  Mis  aplicaciones   </span>
+        <span class="font2">    Aplicaciones   </span>
     </ion-nav-title>
     <ion-content ng-hide="loading">
-        <div class="list ">
-            <div class="item g">
+     
+        <div class="list">
+            <a ng-repeat="x in Session.user.aplicaciones" class="item item-thumbnail-left g" href="#/app/oferta/{{x}}" style="font: italic bold 12px/30px Georgia, serif;" >
+                <img ng-src={{pics[0]}} >
                 <center>
-                    <h2 class="filtro">perfil</h2>
-                </center>
-                <p>fecha</p>
-                <div class="row ">
-                    <div class="col-20 col-offset-10">
-                        <center class="aplicacion" ng-class="estado[0]"><i class="icon ion-android-done-all"></i>
-                        </center>
-                        <center><span class="filtro">cv visto</span></center>
-                    </div>
-                    <div class="col-10  ">
-                        <center><i class="icon ion-ios-minus-empty"></i></center>
-                    </div>
-                    <div class="col-20  ">
-                        <center class="aplicacion" ng-class="estado[1]"><i class="icon ion-android-done-all"></i>
-                        </center>
-                        <center><span class="filtro">proceso</span></center>
-                    </div>
-                    <div class="col-10  ">
-                        <center><i class="icon ion-ios-minus-empty"></i></center>
-                    </div>
-                    <div class="col-20  ">
-                        <center class="aplicacion" ng-class="estado[2]"><i class="icon ion-android-done-all"></i>
-                        </center>
-                        <center><span class="filtro">finalista</span></center>
-                    </div>
-                    <div class="item-icon-right ">
-                        <i class="icon ion-ios-close" style="color: red"></i>
-                    </div>
-                </div>
-            </div>
+                    <h2 style="margin:8px">{{x.perfil}}</h2>
+                    
+                      <p>{{x.descripcion}}</p>
+               
+               
+              
+                
+                <p style="margin:4px">
+                    <i class="icon ion-ios-stopwatch-outline placeholder-icon " style="color:black"> <spam style="color:black">{{x.inicio | date:"MM-dd"}}</spam></i>
+                    <i class="icon ion-social-usd placeholder-icon " style="color:#ffd600"><spam style="color:black"> {{x.salario}}</spam></i>
+                    <i class="icon ion-location placeholder-icon " style="color:red"> <spam style="color:black">{{ x.cuidad}} 
+      </spam></i>
+                </p>
+
+                 </center>
+
+
+                 
+
+            </a>
+
         </div>
     </ion-content>
 </ion-view>

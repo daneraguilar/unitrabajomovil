@@ -2,15 +2,13 @@
     <ion-nav-title>
         <span class="font2">  Mi  hoja de Vida   </span>
     </ion-nav-title>
-    <ion-content ng-hide="loading" >
-    <p ng-repeat="p in mesages">
-        {{p}}
-    </p>
-        <div class="row item-input item-input-wrapper g item-icon-letf ">
+    <ion-content ng-hide="loading" style="background-color: #FDFDFD;  font: italic bold 12px/30px Georgia, serif;" >
+   
+        <div class="row item-input item-input-wrapper g item-icon-letf " >
             <i class="icon ">
 		<img src="img/meletin.png" alt="" width="60" height="50">
 	</i>
-            <div class="col col-40 col-offset-10" ><span class="filtro">Experiencia   <br>     laboral </span> </div>
+            <div class="col col-40 col-offset-10"  ><span class="filtro">Experiencia   <br>     laboral </span> </div>
             <div class="col col-20 ">
                 <button class="button button-small coloruniversidad
 		" ng-click="showcvE()">
@@ -26,7 +24,7 @@
                 </button>
             </div>
         </div>
-        <ion-list>
+        <ion-list >
             <ion-item class="item item-icon-right " style="   background-color: #e8f5e9" ng-repeat="d in user.experiencias">
                 <a>
                     <i class="icon ion-android-more-vertical" ng-click="editarE(d)"></i>

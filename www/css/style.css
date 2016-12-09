@@ -39,6 +39,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a8ffa8', end
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#1ffefefe', GradientType=0);
     /* IE6-9 */
 }
+.g2{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e2e2e2+0,dbdbdb+50,d1d1d1+51,e2e2e2+57,e2e2e2+57,fefefe+97 */
+background: #e2e2e2; /* Old browsers */
+background: -moz-linear-gradient(top,  #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #e2e2e2 57%, #e2e2e2 57%, #fefefe 97%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#e2e2e2 57%,#e2e2e2 57%,#fefefe 97%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#e2e2e2 57%,#e2e2e2 57%,#fefefe 97%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
+
+}
 
 .y {
     color: #ffea00

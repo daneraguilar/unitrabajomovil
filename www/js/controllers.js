@@ -1,6 +1,19 @@
 angular.module('starter.controllers', [])
+.filter('unique', function() {
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $ionicLoading, service) {
+  return function (arr, field) {
+    var o = {}, i, l = arr.length, r = [];
+    for(i=0; i<l;i+=1) {
+      o[arr[i][field]] = arr[i];
+    }
+    for(i in o) {
+      r.push(o[i]);
+    }
+    return r;
+  };
+})
+
+.controller('AppCtrl', function($scope, socket, $ionicModal, $timeout, $ionicPopup, $ionicLoading, service) {
         'use strict';
         // With the new view caching in Ionic, Controllers are only called
         // when they are recreated or on app start, instead of every page change.
@@ -12,21 +25,39 @@ angular.module('starter.controllers', [])
         $scope.loginData = {};
         $scope.registro = {};
         $scope.Session = {};
-        $scope.ofertas=[];
-        service.showOfertas().then(function(res){
-           
-            $scope.ofertas=res.data;
-             console.log("resivido");
-         
+        $scope.ofertas = [];
+        service.showOfertas().then(function(res) {
 
-        },function(err){
+            $scope.ofertas = res.data;
+            console.log("resivido");
+
+
+        }, function(err) {
+
 
         });
+        socket.on('daner', function(data) {
+            var oferta = {};
+            oferta.descripcion = data.ap;
+            oferta.perfil = data.name;
+            $scope.ofertas.push(oferta);
+            $scope.showAlert("UPC CENTER", data.name);
+        });
+
+        $scope.filtersalario = function(item) {
+            var int = parseInt(item.salario)
+            return $scope.filtro.Fange < int;
+        };
+        $scope.voferta = function() {
+            $location.path("/cv");
+        }
+
+
 
         $scope.Session.name = "Iniciar Session";
         $scope.pics = ["img/desarrollador.jpg"];
         // Form data for the login modal
-       
+
         $scope.Departamentos = [
             'AMAZONAS',
             'ANTIOQUIA',
@@ -85,7 +116,8 @@ angular.module('starter.controllers', [])
         });
         // Create the login modal that we will use later
         $ionicModal.fromTemplateUrl('templates/login.html', {
-            scope: $scope
+            scope: $scope,
+            hardwareBackButtonClose: false
 
         }).then(function(modal) {
             $scope.modal = modal;
@@ -100,6 +132,7 @@ angular.module('starter.controllers', [])
 
         }).then(function(modal) {
             $scope.filtro = modal;
+            $scope.filtro.Fange = 0;
         });
         // Triggered in the login modal to close it
         $scope.closeLogin = function() {
@@ -172,7 +205,7 @@ angular.module('starter.controllers', [])
                     $scope.Session.user = res.data;
                     service.setUser($scope.Session.user);
                     $scope.Session.state = true;
-                   
+
                     $scope.Session.name = $scope.Session.user.nombres;
                     $scope.closeLogin();
                 }
@@ -234,18 +267,29 @@ angular.module('starter.controllers', [])
         var initsession = JSON.parse(localStorage.getItem('user'));
         //console.log(initsession);
         if (initsession) {
-      
+
             //console.log(initsession);service.setUser($scope.Session.user);
-     $scope.loginData.email=initsession.email;
-     console.log(initsession.email);
-     $scope.loginData.password = initsession.password;
-     $scope.doLogin();
+            $scope.loginData.email = initsession.email;
+            console.log(initsession.email);
+            $scope.loginData.password = initsession.password;
+            $scope.doLogin();
             // $scope.closeLogin();
 
         } else {
-            
+
             //  $scope.login();
         }
+        $scope.filteraplicaciones = function(item) {
+
+            for (var i = 0; i < $scope.Session.user.aplicaciones.length; i++) {
+                if (item._id === filteaplicaciones[i]) {
+                    console.log(item._id);
+                    return true;
+                }
+            }
+
+            return false;
+        };
     })
     .controller('CV', function($scope, $stateParams, $ionicModal, $timeout, $ionicPopup, $ionicLoading, service) {
         'use strict';
@@ -255,15 +299,15 @@ angular.module('starter.controllers', [])
         $scope.estudio = {};
         $scope.idioma = {};
         $scope.competecia = {};
-        $scope.nivelStudio=["Pregrado","Especializacion","Maestria","Doctorado","Posdoctorado"];
-        $scope.idiomas=["Ingles","Español","Frances","Mandarin","otro"];
-        $scope.nivelIdiomas=["A1","A2","B1","B2","C1","C2"];
+        $scope.nivelStudio = ["Pregrado", "Especializacion", "Maestria", "Doctorado", "Posdoctorado"];
+        $scope.idiomas = ["Ingles", "Español", "Frances", "Mandarin", "otro"];
+        $scope.nivelIdiomas = ["A1", "A2", "B1", "B2", "C1", "C2"];
         //$scope.getUser = function(){
-               $scope.user = service.getUser();
+        $scope.user = service.getUser();
         //}    
-       
-       
-       
+
+
+
 
         $scope.showAlert = function(t, b) {
             var alertPopup = $ionicPopup.alert({
@@ -290,7 +334,7 @@ angular.module('starter.controllers', [])
                                 service.setUser(user.data);
                                 $scope.user = service.getUser();
                                 $ionicLoading.hide();
-                                $scope.showAlert("Experiencia", "se Elimino corretamente!");
+                                $scope.showAlert("Experiencia", " eliminada corretamente!");
                                 $scope.experiencia = {};
                             }, function(err) {
                                 $ionicLoading.hide();
@@ -324,7 +368,7 @@ angular.module('starter.controllers', [])
                         service.experienciaupdate($scope.experiencia).then(function(res) {
                             console.log("c");
                             $ionicLoading.hide();
-                            $scope.showAlert("Experiencia", "editadob corretamente!");
+                            $scope.showAlert("Experiencia", "editado corretamente!");
 
                         }, function(err) {
                             $scope.showAlert("Experiencia", "Error editando");
@@ -400,7 +444,7 @@ angular.module('starter.controllers', [])
                         service.estudioupdate($scope.estudio).then(function(res) {
                             //    console.log(res.data);
                             $ionicLoading.hide();
-                            $scope.showAlert("Formacion", "editadob corretamente!");
+                            $scope.showAlert("Formacion", "editado corretamente!");
 
                         }, function(err) {
                             $scope.showAlert("Experiencia", "Error editando");
@@ -695,10 +739,10 @@ angular.module('starter.controllers', [])
 
 
                 service.competencianew($scope.competecia).then(function(res) {
-                	console.log(res.data);
+                    console.log(res.data);
                     service.finduser(service.getUser()._id).then(function(user) {
 
-                       // console.log(user.data);
+                        // console.log(user.data);
                         service.setUser(user.data);
                         $scope.user = service.getUser();
 
@@ -730,7 +774,7 @@ angular.module('starter.controllers', [])
     })
 
 
-    .controller('aplicaciones', function($scope, $stateParams, $ionicModal, $timeout, $ionicPopup, $ionicLoading) {
+.controller('aplicaciones', function($scope, $stateParams, $ionicModal, $timeout, $ionicPopup, $ionicLoading) {
     $scope.estado = ['', '', 'stado'];
     $ionicLoading.show({
         content: 'Loading',
@@ -744,5 +788,73 @@ angular.module('starter.controllers', [])
         $ionicLoading.hide();
         $scope.loading = false;
     }, 1000);
+
+})
+
+.controller('oferta', function($scope, $stateParams, $ionicModal, $timeout, $ionicPopup, $ionicLoading, service) {
+       var user = service.getUser();
+       console.log(user);
+       $scope.ap=false;
+       
+        
+        $scope.oferta = JSON.parse($stateParams.oferta);
+       
+
+        for(var i=0;i<$scope.oferta.aplicados.length;i++){
+            if($scope.oferta.aplicados[i]==user._id){
+                $scope.ap=true;
+            }
+
+        }
+
+
+        $scope.aplicar = function(id) {
+         if(!$scope.ap){
+            var confirmPopup = $ionicPopup.confirm({
+                title: 'Aplicar',
+                template: 'esta seguro que quiere aplicar en esta oferta?'
+            });
+
+            confirmPopup.then(function(res) {
+                    if (res) {
+                        $ionicLoading.show();
+          
+                       
+                 
+                        service.aplicar(id,user._id).then(function(res) {
+                             $ionicLoading.hide();
+                            console.log(res.data);
+                       
+                       if(res.data.message==null){
+                        $scope.showAlert("Oferta", "Aplicado corretamente!");
+                }
+                else{
+                     $scope.showAlert("Oferta", res.data.message);
+
+                }
+
+                    },
+                    function(err) {
+                        $scope.showAlert("Ofertas", "Error Aplicando");
+                        $scope.estudio = {};
+                        $ionicLoading.hide();
+                    });
+            }
+            else {
+
+            }
+        });
+
+       }     
+
+
+
+}
+
+$scope.showConfirm = function(t, b) {
+
+};
+
+
 
 })
